@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚗 AutoHub Car Dealership - Ready-to-Market Site
 
-## Getting Started
+## 🎉 Features
+- **Modern UI**: Tailwind CSS, dark theme, responsive (mobile-first)
+- **Home**: Hero section, featured cars grid
+- **Browse**: Filterable listings (/cars - search/make/year)
+- **Details**: Gallery carousel, interest form, WhatsApp/call
+- **Admin**: Full CRUD (add/edit/delete cars), auth protected
+- **Next.js 15 + Prisma**: Production-ready
 
-First, run the development server:
+## 🚀 Quick Start
+1. **Fix Auth** (errors in terminal):
+   ```
+   echo AUTH_SECRET=$(openssl rand -base64 32) >> .env.local
+   echo ADMIN_USERNAME=admin >> .env.local
+   echo ADMIN_PASSWORD_HASH=$2b$12$bvWcJaZc2b9ub7Gr4wT4Pu1liwnF8VkPYMFVf8k92/lhu4mawHbpa >> .env.local
+   ```
+2. **DB** (if needed): `npx prisma db push`
+3. **Run**: `npm run dev` → http://localhost:3000
+4. **Admin**: /login → admin/admin → /admin add cars
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📱 Demo Flow
+- Home → Browse Cars (filter) → Details (form/gallery)
+- Add sample cars: BMW M3 (use unsplash.com/photos/car images URLs)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🖼️ Real Images
+Download from Unsplash Cars:
+- https://images.unsplash.com/photo-1552519507-da3b142c6e3d → BMW → public/cars/bmw.jpg
+- Repeat for 8-10 cars
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production
+`npm run build && npm start`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Site live & market-ready! Add images + DB cars for full demo.
