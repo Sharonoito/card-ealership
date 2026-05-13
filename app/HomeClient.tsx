@@ -11,12 +11,12 @@ export default async function Home() {
   const brands = ["TOYOTA", "BMW", "AUDI", "MERCEDES", "NISSAN", "MAZDA", "LEXUS", "PORSCHE", "HONDA", "LAND ROVER"];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 overflow-x-hidden">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10 overflow-x-hidden">
       
       {/* --- TOP BAR --- */}
       <div className="bg-slate-950 text-white py-3 text-[10px] font-black tracking-[0.4em] uppercase text-center border-b border-white/5">
         <span className="flex items-center justify-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#0071d2] animate-pulse" />
           Direct Wholesale Auction Access • Federal Way, WA
         </span>
       </div>
@@ -36,14 +36,14 @@ export default async function Home() {
           <div className="max-w-3xl">
             <h1 className="text-7xl md:text-[110px] font-black text-white leading-[0.85] tracking-tighter mb-8 italic">
               Bid. Win.<br />
-              <span className="text-emerald-500 not-italic">Drive.</span>
+              <span className="text-[#0071d2] not-italic">Drive.</span>
             </h1>
             <p className="text-xl text-slate-300 font-medium mb-10 max-w-lg">
               The modern way to acquire premium vehicles at wholesale dealer pricing.
             </p>
             <Link
               href="/cars"
-              className="inline-block px-12 py-5 bg-emerald-600 text-white font-black uppercase text-xs tracking-widest rounded-full hover:bg-emerald-500 transition-all shadow-xl active:scale-95"
+              className="inline-block px-12 py-5 bg-[#005ba3] text-white font-black uppercase text-xs tracking-widest rounded-full hover:bg-[#0071d2] transition-all shadow-xl active:scale-95"
             >
               Explore Inventory
             </Link>
@@ -72,7 +72,7 @@ export default async function Home() {
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-24 text-center">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-600 mb-4">A Smarter Acquisition</h2>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#005ba3] mb-4">A Smarter Acquisition</h2>
             <p className="text-5xl font-black tracking-tighter text-slate-900">How we get you on the road.</p>
           </div>
 
@@ -84,7 +84,7 @@ export default async function Home() {
               { step: "Delivery", desc: "Professional detailing and home delivery.", num: "04" },
             ].map((item, i) => (
               <div key={i} className="group relative">
-                <span className="text-3xl font-black text-emerald-600/20 mb-4 block">{item.num}</span>
+                <span className="text-3xl font-black text-[#005ba3]/20 mb-4 block">{item.num}</span>
                 <h4 className="text-xl font-black text-slate-900 mb-2">{item.step}</h4>
                 <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
               </div>
@@ -94,9 +94,9 @@ export default async function Home() {
       </section>
 
       {/* --- GREEN BRAND MARQUEE --- */}
-      <section className="py-24 bg-emerald-600 overflow-hidden">
+      <section className="py-24 bg-[#005ba3] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 mb-12">
-          <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-100 text-center">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#0071d2]/10 text-center">
             Preferred Manufacturers
           </h3>
         </div>
@@ -117,10 +117,10 @@ export default async function Home() {
           <div className="flex justify-between items-end mb-16">
             <div>
               <h3 className="text-4xl font-black tracking-tighter text-slate-900">
-                Featured <span className="text-emerald-500 italic font-serif lowercase">curations</span>
+                Featured <span className="text-[#0071d2] italic font-serif lowercase">curations</span>
               </h3>
             </div>
-            <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-emerald-600 border-b-2 border-emerald-200 hover:border-emerald-500 pb-1 transition-all">
+            <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-[#005ba3] border-b-2 border-[#0071d2]/20 hover:border-[#0071d2] pb-1 transition-all">
               View All
             </Link>
           </div>
@@ -139,13 +139,13 @@ export default async function Home() {
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1] mb-8">
               Ready for your <br />
-              <span className="text-emerald-400">next vehicle?</span>
+              <span className="text-[#4a9fe6]">next vehicle?</span>
             </h2>
             <p className="text-slate-400 text-lg mb-12 font-medium">
               Join the hundreds of owners who skipped the dealership markup. 
               Our specialists are ready to guide you.
             </p>
-            <Link href="/contact-us" className="inline-block bg-white text-slate-950 px-12 py-5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-emerald-500 hover:text-white transition-all transform hover:scale-105 shadow-2xl">
+            <Link href="/contact-us" className="inline-block bg-white text-slate-950 px-12 py-5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-[#0071d2] hover:text-white transition-all transform hover:scale-105 shadow-2xl">
               Start Consultation
             </Link>
           </div>

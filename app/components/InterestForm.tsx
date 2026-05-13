@@ -13,14 +13,14 @@ export default function InterestForm({ carId, carModel }: { carId: string; carMo
 
   if (status === "success") {
     return (
-      <div className="bg-emerald-50 border border-emerald-100 rounded-[2rem] p-8 text-center animate-in fade-in zoom-in duration-500">
-        <div className="h-10 w-10 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white">
+      <div className="bg-[#0071d2]/5 border border-[#0071d2]/10 rounded-[2rem] p-8 text-center animate-in fade-in zoom-in duration-500">
+        <div className="h-10 w-10 bg-[#0071d2] rounded-full flex items-center justify-center mx-auto mb-4 text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <h3 className="text-emerald-950 font-black uppercase text-[10px] tracking-widest mb-1">Request Logged</h3>
-        <p className="text-emerald-700 text-xs font-medium">We'll reach out about the {carModel}.</p>
+        <h3 className="text-[#00284d] font-black uppercase text-[10px] tracking-widest mb-1">Request Logged</h3>
+        <p className="text-[#004a8c] text-xs font-medium">We'll reach out about the {carModel}.</p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function InterestForm({ carId, carModel }: { carId: string; carMo
             required
             type="text"
             placeholder="John Doe"
-            className="w-full bg-white rounded-xl border-none px-5 py-3.5 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all text-sm font-medium"
+            className="w-full bg-white rounded-xl border-none px-5 py-3.5 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all text-sm font-medium"
           />
         </div>
 
@@ -49,7 +49,7 @@ export default function InterestForm({ carId, carModel }: { carId: string; carMo
             required
             type="text"
             placeholder="Email or Phone number"
-            className="w-full bg-white rounded-xl border-none px-5 py-3.5 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all text-sm font-medium"
+            className="w-full bg-white rounded-xl border-none px-5 py-3.5 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all text-sm font-medium"
           />
         </div>
 

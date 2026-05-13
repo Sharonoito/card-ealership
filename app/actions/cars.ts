@@ -1,4 +1,4 @@
-"use server";
+  "use server";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -6,10 +6,16 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { CarStatus } from "../generated/prisma/enums";
 
-async function requireAdmin() {
+async function requireAdminRole(allowedRoles: Array<"SUPER_ADMIN" | "INVENTORY_CONTENT_ADMIN">) {
   const session = await auth();
   if (!session) throw new Error("Unauthorized");
+
+  const role = (session as any)?.user?.role as | "SUPER_ADMIN" | "INVENTORY_CONTENT_ADMIN" | undefined;
+  if (!role || !allowedRoles.includes(role)) {
+    throw new Error("Forbidden");
+  }
 }
+
 
 export type CarActionState =
   | { error: string }
@@ -19,7 +25,10 @@ export async function addCar(
   _prevState: CarActionState,
   formData: FormData
 ): Promise<CarActionState> {
-  await requireAdmin();
+  await requireAdminRole([
+    "SUPER_ADMIN",
+    "INVENTORY_CONTENT_ADMIN",
+  ]);
 
   const make = (formData.get("make") as string)?.trim();
   const model = (formData.get("model") as string)?.trim();
@@ -53,9 +62,24 @@ export async function addCar(
     return { error: "Invalid status." };
   }
 
+  // Optional fields
+  const bodyType = (formData.get("bodyType") as string)?.trim() || null;
+  const transmission = (formData.get("transmission") as string)?.trim() || null;
+  const fuelType = (formData.get("fuelType") as string)?.trim() || null;
+  const condition = (formData.get("condition") as string)?.trim() || null;
+  const exteriorColor = (formData.get("exteriorColor") as string)?.trim() || null;
+  const interiorColor = (formData.get("interiorColor") as string)?.trim() || null;
+  const trim = (formData.get("trim") as string)?.trim() || null;
+  const drivetrain = (formData.get("drivetrain") as string)?.trim() || null;
+  const engine = (formData.get("engine") as string)?.trim() || null;
+  const vehicleHistory = (formData.get("vehicleHistory") as string)?.trim() || null;
+  const gasMileage = (formData.get("gasMileage") as string)?.trim() || null;
+  const isNew = formData.get("isNew") === "true";
+  const features = (formData.get("features") as string)?.split(",").map(f => f.trim()).filter(Boolean) || [];
+
   try {
     await prisma.car.create({
-      data: { make, model, year, mileage, price, imageUrl, status },
+      data: { make, model, year, mileage, price, imageUrl, status, bodyType, transmission, fuelType, condition, exteriorColor, interiorColor, trim, drivetrain, engine, vehicleHistory, gasMileage, isNew, features },
     });
   } catch {
     return { error: "Failed to save car listing. Please try again." };
@@ -70,8 +94,12 @@ export async function updateCar(
   id: string,
   _prevState: CarActionState,
   formData: FormData
-): Promise<CarActionState> {
-  await requireAdmin();
+  ): Promise<CarActionState> {
+  await requireAdminRole([
+    "SUPER_ADMIN",
+    "INVENTORY_CONTENT_ADMIN",
+  ]);
+
 
   const make = (formData.get("make") as string)?.trim();
   const model = (formData.get("model") as string)?.trim();
@@ -105,10 +133,25 @@ export async function updateCar(
     return { error: "Invalid status." };
   }
 
+  // Optional fields
+  const bodyType = (formData.get("bodyType") as string)?.trim() || null;
+  const transmission = (formData.get("transmission") as string)?.trim() || null;
+  const fuelType = (formData.get("fuelType") as string)?.trim() || null;
+  const condition = (formData.get("condition") as string)?.trim() || null;
+  const exteriorColor = (formData.get("exteriorColor") as string)?.trim() || null;
+  const interiorColor = (formData.get("interiorColor") as string)?.trim() || null;
+  const trim = (formData.get("trim") as string)?.trim() || null;
+  const drivetrain = (formData.get("drivetrain") as string)?.trim() || null;
+  const engine = (formData.get("engine") as string)?.trim() || null;
+  const vehicleHistory = (formData.get("vehicleHistory") as string)?.trim() || null;
+  const gasMileage = (formData.get("gasMileage") as string)?.trim() || null;
+  const isNew = formData.get("isNew") === "true";
+  const features = (formData.get("features") as string)?.split(",").map(f => f.trim()).filter(Boolean) || [];
+
   try {
     await prisma.car.update({
       where: { id },
-      data: { make, model, year, mileage, price, imageUrl, status },
+      data: { make, model, year, mileage, price, imageUrl, status, bodyType, transmission, fuelType, condition, exteriorColor, interiorColor, trim, drivetrain, engine, vehicleHistory, gasMileage, isNew, features },
     });
   } catch {
     return { error: "Failed to update car listing. Please try again." };
@@ -121,7 +164,11 @@ export async function updateCar(
 }
 
 export async function deleteCar(id: string): Promise<void> {
-  await requireAdmin();
+  await requireAdminRole([
+    "SUPER_ADMIN",
+    "INVENTORY_CONTENT_ADMIN",
+  ]);
+
 
   try {
     await prisma.car.delete({ where: { id } });

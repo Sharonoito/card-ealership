@@ -13,6 +13,19 @@ type CarFormProps = {
     price: number;
     imageUrl: string;
     status: "AVAILABLE" | "SOLD";
+    bodyType?: string | null;
+    transmission?: string | null;
+    fuelType?: string | null;
+    condition?: string | null;
+    exteriorColor?: string | null;
+    interiorColor?: string | null;
+    trim?: string | null;
+    drivetrain?: string | null;
+    engine?: string | null;
+    vehicleHistory?: string | null;
+    gasMileage?: string | null;
+    isNew?: boolean;
+    features?: string[];
   };
   submitLabel: string;
 };
@@ -20,7 +33,7 @@ type CarFormProps = {
 const currentYear = new Date().getFullYear();
 
 // REFINED STYLES: Switched bg-white to bg-slate-100/50 for a soft grey tint
-const inputStyles = "w-full bg-slate-100/50 rounded-2xl border border-slate-200/60 px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-inner transition-all text-sm font-medium outline-none";
+const inputStyles = "w-full bg-slate-100/50 rounded-2xl border border-slate-200/60 px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#0071d2]/20 focus:border-[#0071d2] shadow-inner transition-all text-sm font-medium outline-none";
 const labelStyles = "text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1 mb-2 block";
 
 export default function CarForm({ action, initialValues, submitLabel }: CarFormProps) {
@@ -36,11 +49,11 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
 
       {/* SECTION: Core Specs */}
       <div className="relative group">
-        <div className="absolute -left-4 top-0 bottom-0 w-1 bg-emerald-500/20 rounded-full group-hover:bg-emerald-500 transition-colors" />
+        <div className="absolute -left-4 top-0 bottom-0 w-1 bg-[#0071d2]/20 rounded-full group-hover:bg-[#0071d2] transition-colors" />
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="flex flex-col">
             <label htmlFor="make" className={labelStyles}>
-              Manufacturer <span className="text-emerald-500">/ 01</span>
+              Manufacturer <span className="text-[#0071d2]">/ 01</span>
             </label>
             <input
               id="make"
@@ -55,7 +68,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
 
           <div className="flex flex-col">
             <label htmlFor="model" className={labelStyles}>
-              Model Designation <span className="text-emerald-500">/ 02</span>
+              Model Designation <span className="text-[#0071d2]">/ 02</span>
             </label>
             <input
               id="model"
@@ -70,7 +83,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
 
           <div className="flex flex-col">
             <label htmlFor="year" className={labelStyles}>
-              Production Year <span className="text-emerald-500">/ 03</span>
+              Production Year <span className="text-[#0071d2]">/ 03</span>
             </label>
             <input
               id="year"
@@ -87,7 +100,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
 
           <div className="flex flex-col">
             <label htmlFor="mileage" className={labelStyles}>
-              Logged Mileage <span className="text-emerald-500">/ 04</span>
+              Logged Mileage <span className="text-[#0071d2]">/ 04</span>
             </label>
             <input
               id="mileage"
@@ -104,10 +117,10 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
       </div>
 
       {/* SECTION: Financials & Status */}
-      <div className="p-8 rounded-[2rem] bg-emerald-50/50 border border-emerald-100/50 grid grid-cols-1 gap-8 sm:grid-cols-2">
+      <div className="p-8 rounded-[2rem] bg-[#0071d2]/5/50 border border-[#0071d2]/10/50 grid grid-cols-1 gap-8 sm:grid-cols-2">
         <div className="flex flex-col">
           <label htmlFor="price" className={labelStyles}>
-            Listing Price (USD) <span className="text-emerald-600">/ 05</span>
+            Listing Price (USD) <span className="text-[#005ba3]">/ 05</span>
           </label>
           <div className="relative">
              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">$</span>
@@ -120,14 +133,14 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
                 step="0.01"
                 defaultValue={initialValues?.price}
                 placeholder="0.00"
-                className={`${inputStyles} pl-10 bg-white border-emerald-100`}
+                className={`${inputStyles} pl-10 bg-white border-[#0071d2]/10`}
               />
           </div>
         </div>
 
         <div className="flex flex-col">
           <label htmlFor="status" className={labelStyles}>
-            Market Availability <span className="text-emerald-600">/ 06</span>
+            Market Availability <span className="text-[#005ba3]">/ 06</span>
           </label>
           <div className="relative">
             <select
@@ -135,12 +148,12 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
               name="status"
               required
               defaultValue={initialValues?.status ?? "AVAILABLE"}
-              className={`${inputStyles} bg-white border-emerald-100 appearance-none cursor-pointer`}
+              className={`${inputStyles} bg-white border-[#0071d2]/10 appearance-none cursor-pointer`}
             >
               <option value="AVAILABLE">Available for Auction</option>
               <option value="SOLD">Sold / Archive</option>
             </select>
-            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-600 text-xs">▼</div>
+            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#005ba3] text-xs">▼</div>
           </div>
         </div>
       </div>
@@ -148,7 +161,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
       {/* SECTION: Visual Media */}
       <div className="flex flex-col">
         <label htmlFor="imageUrl" className={labelStyles}>
-          Primary Display Asset URL <span className="text-emerald-500">/ 07</span>
+          Primary Display Asset URL <span className="text-[#0071d2]">/ 07</span>
         </label>
         <input
           id="imageUrl"
@@ -160,10 +173,76 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
           className={inputStyles}
         />
         <div className="flex items-center gap-2 mt-4 ml-1">
-            <span className="h-1 w-1 bg-emerald-500 rounded-full" />
+            <span className="h-1 w-1 bg-[#0071d2] rounded-full" />
             <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest">
               High-resolution 16:9 assets preferred.
             </p>
+        </div>
+      </div>
+
+      {/* SECTION: Extended Filters */}
+      <div className="relative group">
+        <div className="absolute -left-4 top-0 bottom-0 w-1 bg-emerald-500/20 rounded-full group-hover:bg-emerald-500 transition-colors" />
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { id: "bodyType", label: "Body Type", placeholder: "e.g. Sedan, SUV", val: initialValues?.bodyType },
+            { id: "transmission", label: "Transmission", placeholder: "e.g. Automatic", val: initialValues?.transmission },
+            { id: "fuelType", label: "Fuel Type", placeholder: "e.g. Gasoline", val: initialValues?.fuelType },
+            { id: "condition", label: "Condition", placeholder: "e.g. Excellent", val: initialValues?.condition },
+            { id: "exteriorColor", label: "Exterior Color", placeholder: "e.g. Alpine White", val: initialValues?.exteriorColor },
+            { id: "interiorColor", label: "Interior Color", placeholder: "e.g. Black Leather", val: initialValues?.interiorColor },
+            { id: "trim", label: "Trim", placeholder: "e.g. M Sport", val: initialValues?.trim },
+            { id: "drivetrain", label: "Drivetrain", placeholder: "e.g. AWD", val: initialValues?.drivetrain },
+            { id: "engine", label: "Engine", placeholder: "e.g. 3.0L I6", val: initialValues?.engine },
+            { id: "vehicleHistory", label: "Vehicle History", placeholder: "e.g. Clean title", val: initialValues?.vehicleHistory },
+            { id: "gasMileage", label: "Gas Mileage", placeholder: "e.g. 25/32 MPG", val: initialValues?.gasMileage },
+          ].map((field) => (
+            <div key={field.id} className="flex flex-col">
+              <label htmlFor={field.id} className={labelStyles}>
+                {field.label}
+              </label>
+              <input
+                id={field.id}
+                name={field.id}
+                type="text"
+                defaultValue={field.val ?? ""}
+                placeholder={field.placeholder}
+                className={inputStyles}
+              />
+            </div>
+          ))}
+
+          <div className="flex flex-col">
+            <label htmlFor="isNew" className={labelStyles}>
+              New / Used
+            </label>
+            <div className="relative">
+              <select
+                id="isNew"
+                name="isNew"
+                defaultValue={initialValues?.isNew ? "true" : "false"}
+                className={`${inputStyles} appearance-none cursor-pointer`}
+              >
+                <option value="false">Used</option>
+                <option value="true">New</option>
+              </select>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#005ba3] text-xs">▼</div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:col-span-2 lg:col-span-3">
+            <label htmlFor="features" className={labelStyles}>
+              Features <span className="text-slate-400">(comma separated)</span>
+            </label>
+            <textarea
+              id="features"
+              name="features"
+              rows={3}
+              defaultValue={initialValues?.features?.join(", ") ?? ""}
+              placeholder="Sunroof, Heated Seats, Navigation, Blind Spot Monitor..."
+              className={`${inputStyles} resize-none`}
+            />
+          </div>
         </div>
       </div>
 
@@ -171,7 +250,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
         <button
           type="submit"
           disabled={isPending}
-          className="group w-full sm:w-auto flex items-center justify-center gap-3 bg-slate-950 text-white font-black uppercase text-[10px] tracking-[0.3em] py-6 px-12 rounded-2xl hover:bg-emerald-600 transition-all shadow-2xl shadow-slate-200 active:scale-95 disabled:opacity-60"
+          className="group w-full sm:w-auto flex items-center justify-center gap-3 bg-slate-950 text-white font-black uppercase text-[10px] tracking-[0.3em] py-6 px-12 rounded-2xl hover:bg-[#005ba3] transition-all shadow-2xl shadow-slate-200 active:scale-95 disabled:opacity-60"
         >
           {isPending ? "Synchronizing..." : submitLabel}
           <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>

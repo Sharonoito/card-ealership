@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
+import { prisma } from "@/lib/prisma";
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
@@ -11,49 +13,51 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Cast to 'any' to stop the TypeScript error 2551
         const creds = credentials as any;
 
-        // Try standard names first, then fall back to the prefixed names from your screenshot
         const username = creds?.username || creds?.["1_username"];
         const password = creds?.password || creds?.["1_password"];
 
-        if (!username || !password) {
-          console.error("Auth: Missing username or password in payload");
-          return null;
-        }
+        if (!username || !password) return null;
 
-        const adminUsername = process.env.ADMIN_USERNAME;
-        const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
-        console.log("DEBUG: ADMIN_USERNAME:", adminUsername);
-        console.log("DEBUG: ADMIN_PASSWORD_HASH:", adminPasswordHash);
+        const user = await (prisma as any).user.findUnique({
+          where: { username: String(username) },
+        });
 
-        if (!adminUsername || !adminPasswordHash) {
-          console.error("Auth: .env variables are not loading!");
-          return null;
-        }
-
-        if (String(username).toLowerCase() !== adminUsername.toLowerCase()) {
-          console.error("Auth: Username does not match admin");
-          return null;
-        }
+        if (!user) return null;
 
         const isValid = await bcrypt.compare(
-          password as string,
-          adminPasswordHash
+          String(password),
+          user.passwordHash
         );
 
-        if (!isValid) {
-          console.error("Auth: Password hash comparison failed");
-          return null;
-        }
+        if (!isValid) return null;
 
-        console.log("Auth: Login successful!");
-        return { id: "1", name: "Admin", email: "admin@dealership.local" };
+        return {
+          id: user.id,
+          name: "Admin",
+          email: `${user.username}@dealership.local`,
+          role: user.role,
+        };
       },
     }),
   ],
   session: { strategy: "jwt" },
   pages: { signIn: "/login" },
   secret: process.env.AUTH_SECRET,
+  callbacks: {
+
+    async jwt({ token, user }: any) {
+      // `user` is present on initial sign-in
+      if (user) {
+        token.role = (user as any).role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      (session as any).user = (session as any).user ?? {};
+      (session as any).user.role = token.role;
+      return session;
+    },
+  },
 });

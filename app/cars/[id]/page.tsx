@@ -34,11 +34,11 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the ${car.year} ${car.model} for ${priceFormatted}.`)}`;
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10">
       {/* Sub-Header Nav */}
       <nav className="bg-slate-50 border-b border-slate-100 py-4 px-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors flex items-center gap-2">
+          <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-[#005ba3] transition-colors flex items-center gap-2">
             <span className="text-lg">←</span> Back to Inventory
           </Link>
           <div className="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
@@ -78,15 +78,15 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
           <div className="lg:col-span-5 lg:sticky lg:top-32">
             <div className="space-y-10">
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 mb-6">
-                  <span className={`h-2 w-2 rounded-full ${car.status === "AVAILABLE" ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
-                  <span className="text-emerald-700 text-[10px] font-black uppercase tracking-widest">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0071d2]/5 border border-[#0071d2]/10 mb-6">
+                  <span className={`h-2 w-2 rounded-full ${car.status === "AVAILABLE" ? "bg-[#0071d2] animate-pulse" : "bg-slate-400"}`} />
+                  <span className="text-[#004a8c] text-[10px] font-black uppercase tracking-widest">
                     {car.status === "AVAILABLE" ? "Ready for Bid" : "Vehicle Sold"}
                   </span>
                 </div>
                 <h1 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-4">
                   {car.year} {car.make} <br />
-                  <span className="text-emerald-500 italic font-serif lowercase">{car.model}</span>
+                  <span className="text-[#0071d2] italic font-serif lowercase">{car.model}</span>
                 </h1>
                 <p className="text-4xl font-black text-slate-950 tracking-tighter italic font-serif">
                   {priceFormatted}
@@ -103,7 +103,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 ].map((spec, i) => (
                   <div key={i}>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{spec.label}</p>
-                    <p className={`text-lg font-bold ${spec.highlight ? 'text-emerald-600' : 'text-slate-900'}`}>{spec.val}</p>
+                    <p className={`text-lg font-bold ${spec.highlight ? 'text-[#005ba3]' : 'text-slate-900'}`}>{spec.val}</p>
                   </div>
                 ))}
               </div>
@@ -116,7 +116,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-emerald-600/20 active:scale-95"
+                      className="flex items-center justify-center bg-[#005ba3] hover:bg-[#004a8c] text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-[#005ba3]/20 active:scale-95"
                     >
                       Enquire via WhatsApp
                     </a>
@@ -134,7 +134,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
               ) : (
                 <div className="p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 text-center">
                   <p className="text-slate-400 font-black uppercase text-xs tracking-widest mb-4">Acquisition Completed</p>
-                  <Link href="/cars" className="inline-block text-emerald-600 font-black uppercase text-xs tracking-widest border-b-2 border-emerald-100 hover:border-emerald-600 transition-all pb-1">
+                  <Link href="/cars" className="inline-block text-[#005ba3] font-black uppercase text-xs tracking-widest border-b-2 border-[#0071d2]/10 hover:border-[#005ba3] transition-all pb-1">
                     See Current Inventory
                   </Link>
                 </div>
@@ -152,7 +152,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
             { title: "Full Transparency.", desc: "We disclose all auction fees and transport costs." }
           ].map((item, i) => (
             <div key={i} className="flex gap-6">
-              <span className="text-emerald-500 font-black text-2xl italic font-serif">0{i+1}</span>
+              <span className="text-[#0071d2] font-black text-2xl italic font-serif">0{i+1}</span>
               <p className="text-sm text-slate-500 leading-relaxed">
                 <span className="text-slate-900 font-black uppercase text-[10px] tracking-widest block mb-2">{item.title}</span> 
                 {item.desc}
@@ -205,7 +205,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //       {/* Sub-Header Nav */}
 //       <nav className="bg-slate-50 border-b border-slate-100 py-4 px-6">
 //         <div className="max-w-7xl mx-auto flex items-center justify-between">
-//           <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors flex items-center gap-2">
+//           <Link href="/cars" className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-[#005ba3] transition-colors flex items-center gap-2">
 //             <span className="text-lg">←</span> Back to Inventory
 //           </Link>
 //           <div className="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
@@ -248,15 +248,15 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //             <div className="space-y-8">
 //               {/* Header Info */}
 //               <div>
-//                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 mb-6">
-//                   <span className={`h-2 w-2 rounded-full ${car.status === "AVAILABLE" ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
-//                   <span className="text-emerald-700 text-[10px] font-black uppercase tracking-widest">
+//                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071d2]/5 border border-[#0071d2]/10 mb-6">
+//                   <span className={`h-2 w-2 rounded-full ${car.status === "AVAILABLE" ? "bg-[#0071d2] animate-pulse" : "bg-slate-400"}`} />
+//                   <span className="text-[#004a8c] text-[10px] font-black uppercase tracking-widest">
 //                     {car.status === "AVAILABLE" ? "Ready for Bid" : "Vehicle Sold"}
 //                   </span>
 //                 </div>
 //                 <h1 className="text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-4">
 //                   {car.year} {car.make} <br />
-//                   <span className="text-emerald-500 italic font-serif lowercase">{car.model}</span>
+//                   <span className="text-[#0071d2] italic font-serif lowercase">{car.model}</span>
 //                 </h1>
 //                 <p className="text-4xl font-black text-slate-900 tracking-tighter">
 //                   {priceFormatted}
@@ -279,7 +279,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //                 </div>
 //                 <div>
 //                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Required Deposit</p>
-//                   <p className="text-lg font-bold text-emerald-600">Tier Applied</p>
+//                   <p className="text-lg font-bold text-[#005ba3]">Tier Applied</p>
 //                 </div>
 //               </div>
 
@@ -295,7 +295,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //                       href={whatsappUrl}
 //                       target="_blank"
 //                       rel="noopener noreferrer"
-//                       className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-emerald-600/20"
+//                       className="flex items-center justify-center gap-3 bg-[#005ba3] hover:bg-[#004a8c] text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-[#005ba3]/20"
 //                     >
 //                       Enquire via WhatsApp
 //                     </a>
@@ -315,7 +315,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //               ) : (
 //                 <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100 text-center">
 //                   <p className="text-lg font-bold text-slate-400 mb-4">Acquisition Completed</p>
-//                   <Link href="/cars" className="inline-block text-emerald-600 font-black uppercase text-xs tracking-widest border-b-2 border-emerald-100 hover:border-emerald-600 transition-all pb-1">
+//                   <Link href="/cars" className="inline-block text-[#005ba3] font-black uppercase text-xs tracking-widest border-b-2 border-[#0071d2]/10 hover:border-[#005ba3] transition-all pb-1">
 //                     See Current Inventory
 //                   </Link>
 //                 </div>
@@ -329,15 +329,15 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 //       <footer className="max-w-7xl mx-auto px-6 py-20 border-t border-slate-100">
 //         <div className="grid md:grid-cols-3 gap-12">
 //           <div className="flex gap-4">
-//             <span className="text-emerald-500 font-bold text-xl">01</span>
+//             <span className="text-[#0071d2] font-bold text-xl">01</span>
 //             <p className="text-sm text-slate-500"><span className="text-slate-900 font-bold">Auction Access.</span> We bid on your behalf at wholesale auctions.</p>
 //           </div>
 //           <div className="flex gap-4">
-//             <span className="text-emerald-500 font-bold text-xl">02</span>
+//             <span className="text-[#0071d2] font-bold text-xl">02</span>
 //             <p className="text-sm text-slate-500"><span className="text-slate-900 font-bold">Secure Funds.</span> Deposits are held in a separate Client Trust Account.</p>
 //           </div>
 //           <div className="flex gap-4">
-//             <span className="text-emerald-500 font-bold text-xl">03</span>
+//             <span className="text-[#0071d2] font-bold text-xl">03</span>
 //             <p className="text-sm text-slate-500"><span className="text-slate-900 font-bold">Full Transparency.</span> We disclose all auction fees and transport costs.</p>
 //           </div>
 //         </div>

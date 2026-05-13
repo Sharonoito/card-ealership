@@ -3,16 +3,16 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react"; // Assuming lucide-re
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-emerald-100">
+    <div className="min-h-screen bg-white font-sans selection:bg-[#0071d2]/10">
       {/* Header Section */}
       <section className="pt-32 pb-20 bg-slate-950 text-center relative overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <p className="text-[11px] font-black uppercase tracking-[0.6em] text-emerald-500 mb-6">
+          <p className="text-[11px] font-black uppercase tracking-[0.6em] text-[#0071d2] mb-6">
             Get in Touch
           </p>
           <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] italic">
             Connect with <br />
-            <span className="not-italic text-emerald-400">Our Experts.</span>
+            <span className="not-italic text-[#4a9fe6]">Our Experts.</span>
           </h1>
         </div>
         {/* Subtle background glow */}
@@ -35,35 +35,35 @@ export default function ContactPage() {
 
             <div className="grid sm:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="h-12 w-12 rounded-2xl bg-[#0071d2]/5 flex items-center justify-center text-[#005ba3]">
                   <Phone size={24} />
                 </div>
                 <h4 className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Phone</h4>
-                <p className="text-slate-600 font-bold">(555) 000-0000</p>
+                <p className="text-slate-600 font-bold">2069901808</p>
               </div>
 
               <div className="space-y-4">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="h-12 w-12 rounded-2xl bg-[#0071d2]/5 flex items-center justify-center text-[#005ba3]">
                   <Mail size={24} />
                 </div>
                 <h4 className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Email</h4>
-                <p className="text-slate-600 font-bold">concierge@novashift.com</p>
+                <p className="text-slate-600 font-bold">novashiftautodealersllc@gmail.com</p>
               </div>
 
               <div className="space-y-4">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="h-12 w-12 rounded-2xl bg-[#0071d2]/5 flex items-center justify-center text-[#005ba3]">
                   <MapPin size={24} />
                 </div>
                 <h4 className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Office</h4>
-                <p className="text-slate-600 font-bold">1505 S 356th St,<br />Federal Way, WA</p>
+                <p className="text-slate-600 font-bold">1505 S 356TH ST SUITE 114-17</p>
               </div>
 
               <div className="space-y-4">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="h-12 w-12 rounded-2xl bg-[#0071d2]/5 flex items-center justify-center text-[#005ba3]">
                   <Clock size={24} />
                 </div>
                 <h4 className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Hours</h4>
-                <p className="text-slate-600 font-bold">Mon - Fri: 9am - 6pm<br />Sat: By Appointment</p>
+                <p className="text-slate-600 font-bold">MON-FRI 9AM -5PM<br />SAT 10AM- 3PM<br />SUN CLOSED</p>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     placeholder="John Doe"
-                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all"
+                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
                   />
                 </div>
                 <div className="space-y-2">
@@ -85,14 +85,14 @@ export default function ContactPage() {
                   <input
                     type="email"
                     placeholder="john@example.com"
-                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all"
+                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Inquiry Type</label>
-                <select className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all appearance-none">
+                <select className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all appearance-none">
                   <option>New Vehicle Acquisition</option>
                   <option>Auction Deposit Help</option>
                   <option>Selling a Vehicle</option>
@@ -105,13 +105,13 @@ export default function ContactPage() {
                 <textarea
                   rows={5}
                   placeholder="Tell us about the vehicle you're looking for..."
-                  className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all"
+                  className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-slate-950 text-white font-black uppercase text-xs tracking-[0.2em] py-5 rounded-2xl hover:bg-emerald-600 transition-all shadow-xl active:scale-95"
+                className="w-full bg-slate-950 text-white font-black uppercase text-xs tracking-[0.2em] py-5 rounded-2xl hover:bg-[#005ba3] transition-all shadow-xl active:scale-95"
               >
                 Send Message
               </button>
@@ -124,7 +124,7 @@ export default function ContactPage() {
       <section className="bg-slate-50 py-32 rounded-[4rem] mx-4 mb-12">
         <div className="max-w-4xl mx-auto px-6">
           <h3 className="text-center text-4xl font-black tracking-tighter text-slate-900 mb-16">
-            Common <span className="italic font-serif text-emerald-500 lowercase">questions</span>
+            Common <span className="italic font-serif text-[#0071d2] lowercase">questions</span>
           </h3>
           
           <div className="space-y-6">

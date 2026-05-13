@@ -42,7 +42,7 @@ export default function CarCard({ car }: CarCardProps) {
           <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-md transition-colors ${
             car.status === "SOLD" 
             ? "bg-slate-900/60 text-slate-300" 
-            : "bg-emerald-500/90 text-white"
+            : "bg-[#0071d2]/90 text-white"
           }`}>
             {car.status}
           </span>
@@ -52,10 +52,10 @@ export default function CarCard({ car }: CarCardProps) {
       {/* Info Section */}
       <div className="p-6">
         <div className="flex flex-col gap-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#005ba3]">
             {car.year} {car.make}
           </p>
-          <h3 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">
+          <h3 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-[#005ba3] transition-colors">
             {car.model}
           </h3>
         </div>
@@ -68,7 +68,7 @@ export default function CarCard({ car }: CarCardProps) {
             </p>
           </div>
           
-          <div className="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+          <div className="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#005ba3] group-hover:text-white transition-all duration-300">
              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
