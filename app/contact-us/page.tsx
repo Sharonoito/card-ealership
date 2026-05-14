@@ -1,5 +1,6 @@
 import React from "react";
-import { Mail, Phone, MapPin, Clock } from "lucide-react"; // Assuming lucide-react is installed
+import { Mail, Phone, MapPin, Clock } from "lucide-react"; 
+import ContactForm from "./ContactForm";
 
 export default function ContactPage() {
   return (
@@ -70,52 +71,7 @@ export default function ContactPage() {
 
           {/* Right Column: Refined Form */}
           <div className="bg-slate-50 rounded-[3rem] p-8 md:p-12 border border-slate-100">
-            <form className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="John Doe"
-                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Inquiry Type</label>
-                <select className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all appearance-none">
-                  <option>New Vehicle Acquisition</option>
-                  <option>Auction Deposit Help</option>
-                  <option>Selling a Vehicle</option>
-                  <option>General Inquiry</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Your Message</label>
-                <textarea
-                  rows={5}
-                  placeholder="Tell us about the vehicle you're looking for..."
-                  className="w-full bg-white rounded-2xl border-none px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-[#0071d2] shadow-sm transition-all"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-slate-950 text-white font-black uppercase text-xs tracking-[0.2em] py-5 rounded-2xl hover:bg-[#005ba3] transition-all shadow-xl active:scale-95"
-              >
-                Send Message
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>

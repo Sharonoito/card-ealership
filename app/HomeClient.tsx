@@ -3,8 +3,18 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import CarCard from "./components/CarCard";
 
+type HomeCar = {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  price: number;
+  imageUrl: string;
+  status: "AVAILABLE" | "SOLD";
+};
+
 export default async function Home() {
-  const cars = await prisma.car.findMany({ orderBy: { createdAt: "desc" } });
+  const cars: HomeCar[] = await prisma.car.findMany({ orderBy: { createdAt: "desc" } });
   const available = cars.filter((c) => c.status === "AVAILABLE");
   const featured = available.slice(0, 3);
 

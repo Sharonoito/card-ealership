@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { isRemoteImageUrl, normalizeImageUrl } from "@/lib/imageUrls";
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", {
@@ -22,6 +23,8 @@ interface CarCardProps {
 }
 
 export default function CarCard({ car }: CarCardProps) {
+  const imageUrl = normalizeImageUrl(car.imageUrl);
+
   return (
     <Link
       href={`/cars/${car.id}`}
@@ -30,12 +33,14 @@ export default function CarCard({ car }: CarCardProps) {
       {/* Image Container */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
         <Image
-          src={car.imageUrl}
+          src={imageUrl}
           alt={`${car.year} ${car.make} ${car.model}`}
           fill
+          unoptimized={isRemoteImageUrl(imageUrl)}
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
+
         
         {/* Status Badge */}
         <div className="absolute top-4 left-4">

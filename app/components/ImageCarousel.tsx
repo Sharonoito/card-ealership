@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { isRemoteImageUrl, isSupportedImageUrl, normalizeImageUrl } from '@/lib/imageUrls';
 
 interface ImageCarouselProps {
   images: string[];
@@ -10,8 +11,12 @@ interface ImageCarouselProps {
 
 export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const safeImages = images
+    .map((image) => normalizeImageUrl(image))
+    .filter((image) => isSupportedImageUrl(image));
+  const selectedImage = safeImages[Math.min(currentIndex, safeImages.length - 1)];
 
-  if (images.length === 0) {
+  if (safeImages.length === 0) {
     return (
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-800">
         <Image
@@ -28,30 +33,32 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-800 group">
       <Image
-        src={images[currentIndex]}
+        src={selectedImage}
         alt={`${alt} - Photo ${currentIndex + 1}`}
         fill
         priority
+        unoptimized={isRemoteImageUrl(selectedImage)}
         className="object-cover transition-transform duration-300 group-hover:scale-105"
         sizes="(max-width: 1024px) 100vw, 50vw"
       />
       
       {/* Thumbnails */}
       <div className="absolute bottom-4 left-4 right-4 flex gap-2">
-        {images.map((_, index) => (
+        {safeImages.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`h-16 w-20 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
+            className={`relative h-16 w-20 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
               index === currentIndex
                 ? 'border-amber-400 ring-2 ring-amber-400/50'
                 : 'border-gray-700 hover:border-gray-500'
             }`}
           >
             <Image
-              src={images[index]}
+              src={safeImages[index]}
               alt=""
               fill
+              unoptimized={isRemoteImageUrl(safeImages[index])}
               className="object-cover"
               sizes="80px"
             />
@@ -61,7 +68,7 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
 
       {/* Navigation arrows */}
       <button
-        onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))}
+        onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : safeImages.length - 1))}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-900/80 hover:bg-gray-800 p-2 rounded-full text-white transition-all opacity-0 group-hover:opacity-100"
       >
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +76,7 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
         </svg>
       </button>
       <button
-        onClick={() => setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))}
+        onClick={() => setCurrentIndex((prev) => (prev < safeImages.length - 1 ? prev + 1 : 0))}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-900/80 hover:bg-gray-800 p-2 rounded-full text-white transition-all opacity-0 group-hover:opacity-100"
       >
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

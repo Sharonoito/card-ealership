@@ -26,6 +26,8 @@ type CarFormProps = {
     gasMileage?: string | null;
     isNew?: boolean;
     features?: string[];
+    interiorImageUrl?: string;
+    additionalImageUrls?: string[];
   };
   submitLabel: string;
 };
@@ -159,26 +161,103 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
       </div>
 
       {/* SECTION: Visual Media */}
-      <div className="flex flex-col">
-        <label htmlFor="imageUrl" className={labelStyles}>
-          Primary Display Asset URL <span className="text-[#0071d2]">/ 07</span>
-        </label>
-        <input
-          id="imageUrl"
-          name="imageUrl"
-          type="url"
-          required
-          defaultValue={initialValues?.imageUrl}
-          placeholder="https://images.cloudinary.com/..."
-          className={inputStyles}
-        />
-        <div className="flex items-center gap-2 mt-4 ml-1">
+      <div className="flex flex-col gap-6">
+        {/* Primary body image */}
+        <div className="flex flex-col">
+          <label htmlFor="imageUrl" className={labelStyles}>
+            Car Body Image URL <span className="text-[#0071d2]">/ 07</span>
+          </label>
+          <input
+            id="imageUrl"
+            name="imageUrl"
+            type="text"
+            inputMode="url"
+            autoComplete="off"
+            defaultValue={initialValues?.imageUrl}
+            placeholder="https://example.com/car-exterior.jpg"
+            className={inputStyles}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="flex flex-col">
+            <label htmlFor="thumbnailFile" className={labelStyles}>
+              Or upload car body photo
+            </label>
+            <input
+              id="thumbnailFile"
+              name="thumbnailFile"
+              type="file"
+              accept="image/*"
+              className={inputStyles}
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="interiorImageUrl" className={labelStyles}>
+              Interior Image URL
+            </label>
+            <input
+              id="interiorImageUrl"
+              name="interiorImageUrl"
+              type="text"
+              inputMode="url"
+              autoComplete="off"
+              defaultValue={initialValues?.interiorImageUrl ?? ""}
+              placeholder="https://example.com/car-interior.jpg"
+              className={inputStyles}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="interiorImageFile" className={labelStyles}>
+            Or upload interior photo
+          </label>
+          <input
+            id="interiorImageFile"
+            name="interiorImageFile"
+            type="file"
+            accept="image/*"
+            className={inputStyles}
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="additionalImages" className={labelStyles}>
+            More image URLs <span className="text-slate-400">(comma separated)</span>
+          </label>
+          <textarea
+            id="additionalImages"
+            name="additionalImages"
+            rows={4}
+            defaultValue={initialValues?.additionalImageUrls?.join(", ") ?? ""}
+            placeholder="https://...jpg, https://...jpg"
+            className={`${inputStyles} resize-none`}
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="additionalImageFiles" className={labelStyles}>
+            Or upload more photos
+          </label>
+          <input
+            id="additionalImageFiles"
+            name="additionalImageFiles"
+            type="file"
+            accept="image/*"
+            multiple
+            className={inputStyles}
+          />
+          <div className="flex items-center gap-2 mt-4 ml-1">
             <span className="h-1 w-1 bg-[#0071d2] rounded-full" />
             <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest">
-              High-resolution 16:9 assets preferred.
+              Position 0 is the body image. Position 1 is the interior image. More photos append after that.
             </p>
+          </div>
         </div>
       </div>
+
 
       {/* SECTION: Extended Filters */}
       <div className="relative group">

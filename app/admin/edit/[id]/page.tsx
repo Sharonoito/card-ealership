@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { normalizeImageUrl } from "@/lib/imageUrls";
 import { prisma } from "@/lib/prisma";
 import { updateCar } from "@/app/actions/cars";
 import CarForm from "../../components/CarForm";
@@ -12,10 +13,21 @@ export default async function EditCarPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const car = await prisma.car.findUnique({ where: { id } });
+  const car = await prisma.car.findUnique({
+    where: { id },
+    include: {
+      images: { orderBy: { position: "asc" } },
+    },
+  });
   if (!car) notFound();
 
   const updateCarWithId = updateCar.bind(null, car.id);
+  const imageUrls = car.images
+    .map((image) => normalizeImageUrl(image.url))
+    .filter(Boolean);
+  const primaryImageUrl = imageUrls[0] ?? normalizeImageUrl(car.imageUrl);
+  const interiorImageUrl = imageUrls[1] ?? "";
+  const additionalImageUrls = imageUrls.slice(2);
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-[#0071d2]/10">
@@ -81,7 +93,7 @@ export default async function EditCarPage({
                 year: car.year,
                 mileage: car.mileage,
                 price: car.price,
-                imageUrl: car.imageUrl,
+                imageUrl: primaryImageUrl,
                 status: car.status as "AVAILABLE" | "SOLD",
                 bodyType: car.bodyType,
                 transmission: car.transmission,
@@ -96,6 +108,8 @@ export default async function EditCarPage({
                 gasMileage: car.gasMileage,
                 isNew: car.isNew,
                 features: car.features,
+                interiorImageUrl,
+                additionalImageUrls,
               }}
               submitLabel="Update Listing"
             />

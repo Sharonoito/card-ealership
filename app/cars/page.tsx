@@ -1,12 +1,49 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import InventoryControls from "./InventoryControls";
+import InventoryControls, { type SortKey } from "./InventoryControls";
 // import CarInventoryClient from "./CarInventoryClient";
 
 export const metadata = {
   title: "Available Inventory | Novashift Auto Dealers",
   description: "View our current inventory of premium pre-owned vehicles in Federal Way, WA.",
 };
+
+type InventoryCarRow = {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  price: number;
+  mileage: number;
+  imageUrl: string;
+  status: "AVAILABLE" | "SOLD";
+  createdAt: Date;
+  isNew: boolean;
+  gasMileage: string | null;
+  bodyType: string | null;
+  transmission: string | null;
+  fuelType: string | null;
+  condition: string | null;
+  drivetrain: string | null;
+  engine: string | null;
+  trim: string | null;
+  exteriorColor: string | null;
+  interiorColor: string | null;
+  vehicleHistory: string | null;
+  features: string[];
+  images?: Array<{ url: string }>;
+};
+
+function toSortKey(value: string | undefined): SortKey | undefined {
+  const allowed: SortKey[] = [
+    "newest",
+    "availability",
+    "price_asc",
+    "price_desc",
+    "mileage_asc",
+  ];
+  return value && allowed.includes(value as SortKey) ? (value as SortKey) : undefined;
+}
 
 export default async function CarsPage({
   searchParams,
@@ -40,9 +77,13 @@ export default async function CarsPage({
   const params = await searchParams;
 
   // Fetch once for no-reload filtering/sorting.
-  const cars = await prisma.car.findMany({
+  // Defensive: avoid typed `include: { images }` if Prisma client is temporarily out of sync.
+  const cars: InventoryCarRow[] = await prisma.car.findMany({
     where: { status: "AVAILABLE" },
     orderBy: { createdAt: "desc" },
+    include: {
+      images: { orderBy: { position: "asc" }, take: 1 },
+    },
   });
 
   // Dependent dropdown data (Make -> Models)
@@ -98,7 +139,7 @@ export default async function CarsPage({
           year: c.year,
           price: c.price,
           mileage: c.mileage,
-          imageUrl: c.imageUrl,
+          imageUrl: c.images?.[0]?.url ?? c.imageUrl,
           status: c.status,
           createdAt: c.createdAt,
           isNew: c.isNew,
@@ -141,7 +182,7 @@ export default async function CarsPage({
           vehicleHistory: params.vehicleHistory,
           gasMileage: params.gasMileage,
           isNew: params.isNew,
-          sort: (params.sort as any) ?? undefined,
+          sort: toSortKey(params.sort),
         }}
       />
     </div>

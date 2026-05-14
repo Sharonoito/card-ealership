@@ -1,10 +1,17 @@
-# TODO - Role-based Admin (Prisma)
+# TODO - Multi-image car uploads (URL + file) 
 
-- [ ] Implement Prisma `User` model + `AdminRole` enum
-- [ ] Update NextAuth Credentials auth (`lib/auth.ts`) to authenticate against Prisma users
-- [ ] Include `role` in NextAuth JWT/session for authorization checks
-- [ ] Update server authorization helper (`app/actions/cars.ts`) to enforce role-based permissions
-- [ ] Add initial seed guidance / create users (manual)
-- [ ] Run Prisma migrate and verify login + inventory actions
-- [ ] Run lint/build checks
+- [x] Step 1: Add server-side helper to upload image files to `public/cars/` and return public URLs.
+- [ ] Step 2: Extend `app/admin/components/CarForm.tsx` UI to support:
+
+  - [ ] Thumbnail image: either URL OR file upload (optional file input; keep URL working)
+  - [ ] Additional gallery images: repeatable URL OR file upload
+  - [ ] Simple position ordering: thumbnail = position 0, additional = 1..n
+  - [ ] Keep existing fields and required behavior intact.
+- [ ] Step 3: Update `app/actions/cars.ts`:
+  - [ ] In `addCar`, keep current `imageUrl` behavior, and also create `CarImage` rows for uploaded/URL images.
+  - [ ] In `updateCar`, append new gallery images by default; do not delete existing gallery.
+- [ ] Step 4: Ensure public pages keep working:
+  - [ ] Listing thumbnail uses `Car.images?.[0]?.url ?? car.imageUrl`.
+  - [ ] Car detail carousel sorts by `CarImage.position`.
+- [ ] Step 5: Run `npm run lint` and `npm run build` to verify.
 

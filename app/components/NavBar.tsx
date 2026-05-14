@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { logoutAction } from '../actions/auth';
+import Image from 'next/image';
 
 export default function NavBar() {
   const { data: session } = useSession();
@@ -11,13 +12,18 @@ export default function NavBar() {
     <nav className="border-b border-slate-200 bg-white backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          
-          {/* Brand Logo - Professional Navy & Emerald */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="text-2xl font-black tracking-tighter text-slate-900 group-hover:text-[#005ba3] transition-colors">
-              NOVASHIFT<span className="text-[#0071d2] font-light">AUTO</span>
-            </span>
-          </Link>
+
+      <Link href="/" className="flex items-center gap-3 group">
+        <div className="relative h-16 w-40 md:h-24 md:w-64"> 
+          <Image 
+            src="/novalogo.png" 
+            alt="NovaShift Auto Logo" 
+            fill
+            priority
+            className="object-contain"
+          />
+        </div>
+      </Link>
 
           {/* Navigation Links - Clearer contrast */}
           <div className="hidden md:flex items-center gap-10">

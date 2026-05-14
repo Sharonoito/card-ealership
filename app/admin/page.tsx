@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { isRemoteImageUrl, normalizeImageUrl } from "@/lib/imageUrls";
 import { prisma } from "@/lib/prisma";
 import { logoutAction } from "@/app/actions/auth";
 import DeleteCarButton from "./components/DeleteCarButton";
@@ -14,8 +15,19 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
+type AdminCarRow = {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  mileage: number;
+  price: number;
+  imageUrl: string;
+  status: "AVAILABLE" | "SOLD";
+};
+
 export default async function AdminDashboard() {
-  const cars = await prisma.car.findMany({
+  const cars: AdminCarRow[] = await prisma.car.findMany({
     orderBy: { createdAt: "desc" },
   });
 
@@ -109,9 +121,10 @@ export default async function AdminDashboard() {
                         <div className="flex items-center gap-4">
                           <div className="relative h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 shadow-inner">
                             <Image
-                              src={car.imageUrl}
+                              src={normalizeImageUrl(car.imageUrl)}
                               alt={car.model}
                               fill
+                              unoptimized={isRemoteImageUrl(normalizeImageUrl(car.imageUrl))}
                               className="object-cover group-hover:scale-110 transition-transform duration-500"
                               sizes="80px"
                             />

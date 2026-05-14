@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isSupportedImageUrl, normalizeImageUrl } from "@/lib/imageUrls";
 import { prisma } from "@/lib/prisma";
 import ImageCarousel from "../../components/ImageCarousel";
 import InterestForm from "../../components/InterestForm";
@@ -12,6 +12,11 @@ function formatPrice(price: number) {
     maximumFractionDigits: 0,
   }).format(price);
 }
+
+type CarImageRow = {
+  url: string;
+  position: number;
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -25,8 +30,27 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const car = await prisma.car.findUnique({ where: { id } });
+  const car = await prisma.car.findUnique({
+    where: { id },
+    include: {
+      images: { orderBy: { position: "asc" } },
+    },
+  });
   if (!car) notFound();
+
+  const rows = (car.images ?? []) as CarImageRow[];
+  const urlsFromRows = rows
+    .map((img) => normalizeImageUrl(img.url))
+    .filter((url) => url && isSupportedImageUrl(url));
+  const hasHeroRow = rows.some((img) => img.position === 0);
+  const carouselImages =
+    urlsFromRows.length === 0
+      ? [normalizeImageUrl(car.imageUrl)].filter((url) => url && isSupportedImageUrl(url))
+      : hasHeroRow
+        ? urlsFromRows
+        : [normalizeImageUrl(car.imageUrl), ...urlsFromRows].filter(
+            (u, i, arr) => u && arr.indexOf(u) === i
+          );
 
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "";
@@ -53,9 +77,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
           {/* LEFT: Visuals */}
           <div className="lg:col-span-7 space-y-8">
             <div className="rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-2xl shadow-slate-200">
-              <ImageCarousel 
-                images={[car.imageUrl]} 
-                alt={`${car.year} ${car.make} ${car.model}`} 
+              <ImageCarousel
+                images={carouselImages}
+                alt={`${car.year} ${car.make} ${car.model}`}
               />
             </div>
             
