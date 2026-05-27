@@ -105,30 +105,31 @@ export default async function CarsPage({
   ).sort();
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans">
-      <header className="bg-slate-50 border-b border-slate-100 pt-20 pb-16 px-6">
-        <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10">
+      <header className="bg-slate-950 pt-32 pb-20 px-6 relative overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto">
           <Link
             href="/"
-            className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-[#005ba3] transition-colors mb-6 inline-block"
+            className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-[#4a9fe6] transition-colors mb-6 inline-block"
           >
             ← Back to Home
           </Link>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h1 className="text-5xl font-black text-slate-900 tracking-tighter leading-none mb-4">
+              <h1 className="text-5xl font-black text-white tracking-tighter leading-none mb-4">
                 Current <span className="text-[#0071d2] italic font-serif lowercase">inventory</span>
               </h1>
-              <p className="text-slate-500 font-medium">
+              <p className="text-slate-400 font-medium">
                 Showing {cars.length} {cars.length === 1 ? "premium vehicle" : "premium vehicles"} available for acquisition.
               </p>
             </div>
-            <div className="bg-[#0071d2]/5 px-4 py-2 rounded-full border border-[#0071d2]/10 flex items-center gap-2">
+            <div className="bg-[#0071d2]/10 px-4 py-2 rounded-full border border-[#0071d2]/20 flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-[#0071d2] animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#004a8c]">Live Auction Feed 2026</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#4a9fe6]">Live Auction Feed 2026</span>
             </div>
           </div>
         </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,113,210,0.1)_0%,transparent_70%)]" />
       </header>
 
       <InventoryControls

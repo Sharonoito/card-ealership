@@ -6,10 +6,6 @@ generator client {
   output   = "../app/generated/prisma"
 }
 
-
-
-
-
 datasource db {
   provider = "postgresql"
 }
@@ -87,4 +83,31 @@ model CarImage {
 
   @@unique([carId, position])
   @@index([carId])
+}
+
+model VehicleMake {
+  id          String         @id @default(cuid())
+  name        String         @unique
+  source      String
+  sourceId    String?
+  importedAt  DateTime       @default(now())
+  models      VehicleModel[]
+
+  @@index([name])
+  @@index([source, sourceId])
+}
+
+model VehicleModel {
+  id          String      @id @default(cuid())
+  makeId      String
+  name        String
+  source      String
+  sourceId    String?
+  importedAt  DateTime    @default(now())
+
+  make        VehicleMake @relation(fields: [makeId], references: [id], onDelete: Cascade)
+
+  @@unique([makeId, name])
+  @@index([name])
+  @@index([source, sourceId])
 }

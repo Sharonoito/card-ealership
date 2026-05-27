@@ -222,9 +222,7 @@ export default function AboutUsContent() {
         >
           NovaShift Auto Dealers LLC is a used car dealership focused on
           providing quality vehicles at affordable prices while maintaining
-          transparency, reliability, and customer satisfaction. We want the
-          website to present the company as professional, trustworthy, modern,
-          and customer focused.
+          transparency, reliability, and customer satisfaction.
         </motion.p>
       </section>
 

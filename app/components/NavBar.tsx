@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { logoutAction } from '../actions/auth';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
+
 
   return (
     <nav className="border-b border-slate-200 bg-white backdrop-blur-md sticky top-0 z-50 shadow-sm">
@@ -29,31 +32,31 @@ export default function NavBar() {
           <div className="hidden md:flex items-center gap-10">
             <Link
               href="/"
-              className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-[#005ba3] transition"
+              className={`text-sm font-bold uppercase tracking-widest transition ${pathname === '/' ? 'text-[#005ba3]' : 'text-slate-600 hover:text-[#005ba3]'}`}
             >
               Home
             </Link>
             <Link
               href="/cars"
-              className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-[#005ba3] transition"
+              className={`text-sm font-bold uppercase tracking-widest transition ${pathname === '/cars' ? 'text-[#005ba3]' : 'text-slate-600 hover:text-[#005ba3]'}`}
             >
               Inventory
             </Link>
             <Link
               href="/how-it-works"
-              className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-[#005ba3] transition"
+              className={`text-sm font-bold uppercase tracking-widest transition ${pathname === '/how-it-works' ? 'text-[#005ba3]' : 'text-slate-600 hover:text-[#005ba3]'}`}
             >
               How It Works
             </Link>
             <Link
               href="/about-us"
-              className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-[#005ba3] transition"
+              className={`text-sm font-bold uppercase tracking-widest transition ${pathname === '/about-us' ? 'text-[#005ba3]' : 'text-slate-600 hover:text-[#005ba3]'}`}
             >
               About Us
             </Link>
             <Link
               href="/contact-us"
-              className="text-sm font-bold uppercase tracking-widest text-slate-600 hover:text-[#005ba3] transition"
+              className={`text-sm font-bold uppercase tracking-widest transition ${pathname === '/contact-us' ? 'text-[#005ba3]' : 'text-slate-600 hover:text-[#005ba3]'}`}
             >
               Contact Us
             </Link>

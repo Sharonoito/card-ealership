@@ -1,26 +1,25 @@
-import Link from "next/link";
-
 export const metadata = {
   title: "How It Works | Novashift Auto Dealers",
 };
 
 export default function HowItWorks() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10">
       {/* --- HERO SECTION --- */}
-      <section className="bg-slate-50 pt-24 pb-32 px-6 border-b border-slate-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="text-[#005ba3] font-black uppercase tracking-[0.3em] text-xs mb-4 block">
+      <section className="bg-slate-950 pt-32 pb-24 px-6 text-center relative overflow-hidden">
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <span className="text-[#0071d2] font-black uppercase tracking-[0.6em] text-[11px] mb-6 block">
             Acquisition Simplified
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
+          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] mb-8">
             Ownership starts with <br />
-            <span className="text-[#0071d2] italic font-serif">transparency.</span>
+            <span className="text-[#4a9fe6] italic font-serif">transparency.</span>
           </h1>
-          <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mx-auto">
-            Buying from wholesale auctions shouldn't feel like a gamble. We’ve refined our process to keep you protected, informed, and ahead of the curve.
+          <p className="text-xl text-slate-400 leading-relaxed font-medium max-w-2xl mx-auto">
+            Buying from wholesale auctions shouldn&apos;t feel like a gamble. We’ve refined our process to keep you protected, informed, and ahead of the curve.
           </p>
         </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,113,210,0.1)_0%,transparent_70%)]" />
       </section>
 
       {/* --- THE STEPS --- */}
@@ -112,42 +111,6 @@ export default function HowItWorks() {
               </div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* --- REASSURANCE SECTION --- */}
-      <section className="bg-slate-50 py-32 px-6">
-        <div className="max-w-7xl mx-auto border-t border-slate-200 pt-20">
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-             <div>
-                <h3 className="text-4xl font-black text-slate-900 tracking-tight mb-8">
-                  A partnership <br/> built on <span className="text-[#0071d2]">legal safety.</span>
-                </h3>
-                <ul className="space-y-6">
-                  {[
-                    "Client Trust Account protection under WA Law",
-                    "Licensed, Bonded, and Insured Dealership",
-                    "Clean Title Guarantee on every acquisition",
-                    "Full Disclosure of known mechanical defects"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-4 text-slate-600 font-medium">
-                      <span className="text-[#0071d2] mt-1">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-             </div>
-             
-             <div className="bg-white p-12 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100">
-                <p className="font-black text-xs uppercase tracking-widest text-slate-400 mb-6">Novashift HQ</p>
-                <p className="text-2xl font-bold text-slate-900 mb-2">Federal Way, Washington</p>
-                <p className="text-slate-500 mb-10">1505 S 356th St, Federal Way, WA 98003</p>
-                
-                <Link href="/cars" className="block text-center bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#005ba3] transition-colors">
-                  Find Your Car Today
-                </Link>
-             </div>
           </div>
         </div>
       </section>
