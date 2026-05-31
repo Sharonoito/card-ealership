@@ -118,10 +118,6 @@ const fadeUp = {
   },
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.8 } },
-};
 
 const staggerContainer = {
   hidden: {},
@@ -196,7 +192,7 @@ export default function AboutUsContent() {
           </motion.p>
           <motion.h1
             variants={heroItem}
-            className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] italic"
+            className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] italic"
           >
             Driven by <br />
             <span className="not-italic text-[#4a9fe6]">Trust & Value.</span>
@@ -212,7 +208,7 @@ export default function AboutUsContent() {
       </section>
 
       {/* ===================== COMPANY INTRO ===================== */}
-      <section className="max-w-4xl mx-auto px-6 py-24 text-center">
+      <section className="max-w-4xl mx-auto px-6 py-12 sm:py-24 text-center">
         <motion.p
           className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed"
           variants={fadeUp}

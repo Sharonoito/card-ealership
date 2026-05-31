@@ -11,7 +11,7 @@ export default function ContactPage() {
           <p className="text-[11px] font-black uppercase tracking-[0.6em] text-[#0071d2] mb-6">
             Get in Touch
           </p>
-          <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] italic">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] italic">
             Connect with <br />
             <span className="not-italic text-[#4a9fe6]">Our Experts.</span>
           </h1>
@@ -20,8 +20,8 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.1)_0%,transparent_70%)]" />
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid lg:grid-cols-2 gap-20 items-start">
+      <div className="max-w-7xl mx-auto px-6 py-12 sm:py-24">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
           
           {/* Left Column: Contact Info */}
           <div className="space-y-12">
@@ -48,7 +48,7 @@ export default function ContactPage() {
                   <Mail size={24} />
                 </div>
                 <h4 className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Email</h4>
-                <p className="text-slate-600 font-bold">novashiftautodealersllc@gmail.com</p>
+                <p className="text-slate-600 font-bold break-all">novashiftautodealersllc@gmail.com</p>
               </div>
 
               <div className="space-y-4">
@@ -77,9 +77,9 @@ export default function ContactPage() {
       </div>
 
       {/* FAQ "Flesh" Section */}
-      <section className="bg-slate-50 py-32 rounded-[4rem] mx-4 mb-12">
+      <section className="bg-slate-50 py-16 md:py-32 rounded-[2rem] sm:rounded-[4rem] mx-4 mb-12">
         <div className="max-w-4xl mx-auto px-6">
-          <h3 className="text-center text-4xl font-black tracking-tighter text-slate-900 mb-16">
+          <h3 className="text-center text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 mb-10 md:mb-16">
             Common <span className="italic font-serif text-[#0071d2] lowercase">questions</span>
           </h3>
           

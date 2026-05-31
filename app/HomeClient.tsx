@@ -24,9 +24,9 @@ export default async function Home() {
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10 overflow-x-hidden">
       
       {/* --- TOP BAR --- */}
-      <div className="bg-slate-950 text-white py-3 text-[10px] font-black tracking-[0.4em] uppercase text-center border-b border-white/5">
+      <div className="bg-slate-950 text-white py-3 text-[10px] font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase text-center border-b border-white/5 px-4">
         <span className="flex items-center justify-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#0071d2] animate-pulse" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#0071d2] animate-pulse shrink-0" />
           Direct Wholesale Auction Access • Federal Way, WA
         </span>
       </div>
@@ -44,16 +44,16 @@ export default async function Home() {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
           <div className="max-w-3xl">
-            <h1 className="text-7xl md:text-[110px] font-black text-white leading-[0.85] tracking-tighter mb-8 italic">
+            <h1 className="text-5xl sm:text-7xl md:text-[110px] font-black text-white leading-[0.85] tracking-tighter mb-6 sm:mb-8 italic">
               Bid. Win.<br />
               <span className="text-[#0071d2] not-italic">Drive.</span>
             </h1>
-            <p className="text-xl text-slate-300 font-medium mb-10 max-w-lg">
+            <p className="text-base sm:text-xl text-slate-300 font-medium mb-8 sm:mb-10 max-w-lg">
               The modern way to acquire premium vehicles at wholesale dealer pricing.
             </p>
             <Link
               href="/cars"
-              className="inline-block px-12 py-5 bg-[#005ba3] text-white font-black uppercase text-xs tracking-widest rounded-full hover:bg-[#0071d2] transition-all shadow-xl active:scale-95"
+              className="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-[#005ba3] text-white font-black uppercase text-xs tracking-widest rounded-full hover:bg-[#0071d2] transition-all shadow-xl active:scale-95"
             >
               Explore Inventory
             </Link>
@@ -70,23 +70,23 @@ export default async function Home() {
             { label: "Delivery", val: "5 Days" },
             { label: "Safety", val: "100%" },
           ].map((item, i) => (
-            <div key={i} className="p-10 text-center border-r last:border-0 border-slate-50">
+            <div key={i} className="p-6 sm:p-8 md:p-10 text-center border-r last:border-0 border-slate-50">
               <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{item.label}</span>
-              <span className="text-2xl font-black text-slate-900">{item.val}</span>
+              <span className="text-xl sm:text-2xl font-black text-slate-900">{item.val}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* --- PROCESS --- */}
-      <section className="py-32 bg-white">
+      <section className="py-16 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-24 text-center">
+          <div className="mb-12 md:mb-24 text-center">
             <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#005ba3] mb-4">A Smarter Acquisition</h2>
-            <p className="text-5xl font-black tracking-tighter text-slate-900">How we get you on the road.</p>
+            <p className="text-3xl sm:text-5xl font-black tracking-tighter text-slate-900">How we get you on the road.</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-12">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { step: "Browse", desc: "Access live auction data updated daily.", num: "01" },
               { step: "Deposit", desc: "Secure your bidding power instantly.", num: "02" },
@@ -122,11 +122,11 @@ export default async function Home() {
       </section>
 
       {/* --- FEATURED INVENTORY (Cards Updated) --- */}
-      <section className="py-32 bg-slate-50">
+      <section className="py-16 md:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-end mb-16">
+          <div className="flex flex-wrap justify-between items-end gap-4 mb-10 md:mb-16">
             <div>
-              <h3 className="text-4xl font-black tracking-tighter text-slate-900">
+              <h3 className="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900">
                 Featured <span className="text-[#0071d2] italic font-serif lowercase">curations</span>
               </h3>
             </div>
@@ -135,7 +135,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {featured.map((car) => (
               <CarCard key={car.id} car={car} />
             ))}
@@ -144,18 +144,18 @@ export default async function Home() {
       </section>
 
       {/* --- CTA SECTION --- */}
-      <div className="px-6 pb-24 bg-slate-50">
-        <section className="max-w-7xl mx-auto rounded-[3rem] bg-slate-950 py-32 px-6 text-center relative overflow-hidden">
+      <div className="px-4 sm:px-6 pb-16 sm:pb-24 bg-slate-50">
+        <section className="max-w-7xl mx-auto rounded-[2rem] sm:rounded-[3rem] bg-slate-950 py-16 sm:py-32 px-6 text-center relative overflow-hidden">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1] mb-8">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1] mb-6 sm:mb-8">
               Ready for your <br />
               <span className="text-[#4a9fe6]">next vehicle?</span>
             </h2>
-            <p className="text-slate-400 text-lg mb-12 font-medium">
+            <p className="text-slate-400 text-base sm:text-lg mb-10 sm:mb-12 font-medium">
               Join the hundreds of owners who skipped the dealership markup. 
               Our specialists are ready to guide you.
             </p>
-            <Link href="/contact-us" className="inline-block bg-white text-slate-950 px-12 py-5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-[#0071d2] hover:text-white transition-all transform hover:scale-105 shadow-2xl">
+            <Link href="/contact-us" className="inline-block bg-white text-slate-950 px-8 sm:px-12 py-4 sm:py-5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-[#0071d2] hover:text-white transition-all transform hover:scale-105 shadow-2xl">
               Start Consultation
             </Link>
           </div>
