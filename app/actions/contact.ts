@@ -18,6 +18,10 @@ function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function isTooLong(value: string, maxLength: number) {
+  return value.length > maxLength;
+}
+
 async function sendEmailNotification(input: {
   name: string;
   email: string;
@@ -70,6 +74,15 @@ export async function sendContactMessage(
 
   if (!name || !email || !inquiryType || !message) {
     return { error: "Please fill in your name, email, inquiry type, and message." };
+  }
+
+  if (
+    isTooLong(name, 120) ||
+    isTooLong(email, 254) ||
+    (phone && isTooLong(phone, 40)) ||
+    isTooLong(message, 4000)
+  ) {
+    return { error: "Please shorten your message and try again." };
   }
 
   if (!email.includes("@") || email.length < 5) {

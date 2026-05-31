@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { addCar } from "@/app/actions/cars";
+import { addCar, bulkUploadCars } from "@/app/actions/cars";
+import BulkCarUpload from "../components/BulkCarUpload";
 import CarForm from "../components/CarForm";
 
 export const metadata = { title: "Add Car | Novashift Admin" };
@@ -62,6 +63,8 @@ export default function AddCarPage() {
             <CarForm action={addCar} submitLabel="Publish to Inventory" />
           </div>
         </div>
+
+        <BulkCarUpload action={bulkUploadCars} />
 
         {/* Footer Support Info */}
         <footer className="mt-16 pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between gap-6">
