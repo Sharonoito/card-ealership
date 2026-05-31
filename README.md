@@ -11,9 +11,6 @@
 ## 🚀 Quick Start
 1. **Fix Auth** (errors in terminal):
    ```
-   echo AUTH_SECRET=$(openssl rand -base64 32) >> .env.local
-   echo ADMIN_USERNAME=admin >> .env.local
-   echo ADMIN_PASSWORD_HASH=$2b$12$bvWcJaZc2b9ub7Gr4wT4Pu1liwnF8VkPYMFVf8k92/lhu4mawHbpa >> .env.local
    ```
 2. **DB** (if needed): `npx prisma db push`
 3. **Run**: `npm run dev` → http://localhost:3000
