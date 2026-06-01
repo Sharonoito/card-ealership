@@ -13,15 +13,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const creds = credentials as any;
+        const creds = credentials as Record<string, unknown>;
 
-        const username = creds?.username || creds?.["1_username"];
+        const username = String(
+          creds?.username || creds?.["1_username"] || ""
+        )
+          .trim()
+          .toLowerCase();
         const password = creds?.password || creds?.["1_password"];
 
         if (!username || !password) return null;
 
-        const user = await (prisma as any).user.findUnique({
-          where: { username: String(username) },
+        const user = await prisma.user.findUnique({
+          where: { username },
         });
 
         if (!user) return null;
@@ -47,16 +51,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
   callbacks: {
 
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }) {
       // `user` is present on initial sign-in
       if (user) {
-        token.role = (user as any).role;
+        token.role = (user as { role?: string }).role;
       }
       return token;
     },
     async session({ session, token }) {
-      (session as any).user = (session as any).user ?? {};
-      (session as any).user.role = token.role;
+      session.user = session.user ?? {};
+      (session.user as { role?: unknown }).role = token.role;
       return session;
     },
   },

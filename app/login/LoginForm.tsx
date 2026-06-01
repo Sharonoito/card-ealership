@@ -29,7 +29,7 @@ export default function LoginForm() {
           required
           autoComplete="username"
           className={inputStyles}
-          placeholder="admin"
+          placeholder="superadmin"
         />
       </div>
 
