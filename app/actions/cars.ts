@@ -82,6 +82,11 @@ const bulkCarColumns = [
   "features",
   "interiorImageUrl",
   "additionalImages",
+  "titleStatus",
+  "inspectionStatus",
+  "biddingStatus",
+  "marketStatus",
+  "location",
 ] as const;
 
 const requiredBulkColumns = ["make", "model", "year", "mileage", "price", "imageUrl"];
@@ -300,6 +305,11 @@ export async function addCar(
   const vehicleHistory = (formData.get("vehicleHistory") as string)?.trim() || null;
   const gasMileage = (formData.get("gasMileage") as string)?.trim() || null;
   const isNew = formData.get("isNew") === "true";
+  const titleStatus = optionalText(formData, "titleStatus") || null;
+  const inspectionStatus = optionalText(formData, "inspectionStatus") || null;
+  const biddingStatus = optionalText(formData, "biddingStatus") || null;
+  const marketStatus = optionalText(formData, "marketStatus") || null;
+  const location = optionalText(formData, "location") || null;
   const features = (formData.get("features") as string)?.split(",").map(f => f.trim()).filter(Boolean) || [];
 
   const additionalImageUrlsFromCsv = parseCsvUrls(additionalImagesRaw);
@@ -346,6 +356,11 @@ export async function addCar(
         vehicleHistory,
         gasMileage,
         isNew,
+        titleStatus,
+        inspectionStatus,
+        biddingStatus,
+        marketStatus,
+        location,
         features,
       },
       select: { id: true },
@@ -467,6 +482,11 @@ export async function bulkUploadCars(
     features: string[];
     interiorImageUrl: string;
     additionalImages: string;
+    titleStatus: string | null;
+    inspectionStatus: string | null;
+    biddingStatus: string | null;
+    marketStatus: string | null;
+    location: string | null;
   }> = [];
 
   rows.slice(1).forEach((cells, index) => {
@@ -541,6 +561,11 @@ export async function bulkUploadCars(
       features: parseBulkFeatures(getRowValue(row, "features")),
       interiorImageUrl,
       additionalImages,
+      titleStatus: optionalBulkValue(row, "titleStatus"),
+      inspectionStatus: optionalBulkValue(row, "inspectionStatus"),
+      biddingStatus: optionalBulkValue(row, "biddingStatus"),
+      marketStatus: optionalBulkValue(row, "marketStatus"),
+      location: optionalBulkValue(row, "location"),
     });
   });
 
@@ -597,6 +622,11 @@ export async function bulkUploadCars(
             vehicleHistory: row.vehicleHistory,
             gasMileage: row.gasMileage,
             isNew: row.isNew,
+            titleStatus: row.titleStatus,
+            inspectionStatus: row.inspectionStatus,
+            biddingStatus: row.biddingStatus,
+            marketStatus: row.marketStatus,
+            location: row.location,
             features: row.features,
             images: {
               create: [
@@ -708,6 +738,11 @@ export async function updateCar(
   const vehicleHistory = (formData.get("vehicleHistory") as string)?.trim() || null;
   const gasMileage = (formData.get("gasMileage") as string)?.trim() || null;
   const isNew = formData.get("isNew") === "true";
+  const titleStatus = optionalText(formData, "titleStatus") || null;
+  const inspectionStatus = optionalText(formData, "inspectionStatus") || null;
+  const biddingStatus = optionalText(formData, "biddingStatus") || null;
+  const marketStatus = optionalText(formData, "marketStatus") || null;
+  const location = optionalText(formData, "location") || null;
   const features = (formData.get("features") as string)?.split(",").map(f => f.trim()).filter(Boolean) || [];
 
   // Thumbnail file/url can be updated; gallery defaults to APPEND new images.
@@ -736,7 +771,7 @@ export async function updateCar(
   try {
     await prisma.car.update({
       where: { id },
-      data: { make, model, year, mileage, price, imageUrl: resolvedThumbnailUrl, status, bodyType, transmission, fuelType, condition, exteriorColor, interiorColor, trim, drivetrain, engine, vehicleHistory, gasMileage, isNew, features },
+      data: { make, model, year, mileage, price, imageUrl: resolvedThumbnailUrl, status, bodyType, transmission, fuelType, condition, exteriorColor, interiorColor, trim, drivetrain, engine, vehicleHistory, gasMileage, isNew, titleStatus, inspectionStatus, biddingStatus, marketStatus, location, features },
     });
 
     const interiorUrl = uploadedInteriorUrl || interiorImageUrl;

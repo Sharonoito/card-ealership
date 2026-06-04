@@ -25,6 +25,11 @@ type CarFormProps = {
     vehicleHistory?: string | null;
     gasMileage?: string | null;
     isNew?: boolean;
+    titleStatus?: string | null;
+    inspectionStatus?: string | null;
+    biddingStatus?: string | null;
+    marketStatus?: string | null;
+    location?: string | null;
     features?: string[];
     interiorImageUrl?: string;
     additionalImageUrls?: string[];
@@ -160,6 +165,34 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
         </div>
       </div>
 
+      {/* SECTION: Detail Page Status */}
+      <div className="relative group">
+        <div className="absolute -left-4 top-0 bottom-0 w-1 bg-amber-500/20 rounded-full group-hover:bg-amber-500 transition-colors" />
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { id: "titleStatus", label: "Title", placeholder: "Guaranteed Clean", val: initialValues?.titleStatus ?? "Guaranteed Clean" },
+            { id: "inspectionStatus", label: "Inspection", placeholder: "Pass", val: initialValues?.inspectionStatus ?? "Pass" },
+            { id: "biddingStatus", label: "Bidding", placeholder: "Active", val: initialValues?.biddingStatus ?? "Active" },
+            { id: "marketStatus", label: "Market Status", placeholder: "Auction Ready", val: initialValues?.marketStatus ?? "Auction Ready" },
+            { id: "location", label: "Location", placeholder: "Federal Way, WA", val: initialValues?.location ?? "Federal Way, WA" },
+          ].map((field) => (
+            <div key={field.id} className="flex flex-col">
+              <label htmlFor={field.id} className={labelStyles}>
+                {field.label}
+              </label>
+              <input
+                id={field.id}
+                name={field.id}
+                type="text"
+                defaultValue={field.val ?? ""}
+                placeholder={field.placeholder}
+                className={inputStyles}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* SECTION: Visual Media */}
       <div className="flex flex-col gap-6">
         {/* Primary body image */}
@@ -267,7 +300,7 @@ export default function CarForm({ action, initialValues, submitLabel }: CarFormP
             { id: "bodyType", label: "Body Type", placeholder: "e.g. Sedan, SUV", val: initialValues?.bodyType },
             { id: "transmission", label: "Transmission", placeholder: "e.g. Automatic", val: initialValues?.transmission },
             { id: "fuelType", label: "Fuel Type", placeholder: "e.g. Gasoline", val: initialValues?.fuelType },
-            { id: "condition", label: "Condition", placeholder: "e.g. Excellent", val: initialValues?.condition },
+            { id: "condition", label: "Condition", placeholder: "Tier 1 Certified", val: initialValues?.condition ?? "Tier 1 Certified" },
             { id: "exteriorColor", label: "Exterior Color", placeholder: "e.g. Alpine White", val: initialValues?.exteriorColor },
             { id: "interiorColor", label: "Interior Color", placeholder: "e.g. Black Leather", val: initialValues?.interiorColor },
             { id: "trim", label: "Trim", placeholder: "e.g. M Sport", val: initialValues?.trim },

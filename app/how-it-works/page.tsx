@@ -1,10 +1,17 @@
+import { prisma } from "@/lib/prisma";
+
 export const metadata = {
   title: "How It Works | Novashift Auto Dealers",
 };
 
-export default function HowItWorks() {
+export default async function HowItWorks() {
+  const listingsCount = await prisma.car.count({
+    where: { status: "AVAILABLE" },
+  });
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10">
+
       {/* --- HERO SECTION --- */}
       <section className="bg-slate-950 pt-32 pb-24 px-6 text-center relative overflow-hidden">
         <div className="relative z-10 max-w-4xl mx-auto">
@@ -22,8 +29,27 @@ export default function HowItWorks() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,113,210,0.1)_0%,transparent_70%)]" />
       </section>
 
+      {/* --- STATS --- */}
+      <section className="relative z-20 -mt-16 max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden">
+          {[
+            { label: "Listings", val: `${listingsCount}+` },
+            { label: "Delivery", val: "5 Days" },
+            { label: "Safety", val: "100%" },
+          ].map((item, i) => (
+            <div key={i} className="p-6 sm:p-8 md:p-10 text-center border-r last:border-0 border-slate-50">
+              <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{item.label}</span>
+              <span className="text-xl sm:text-2xl font-black text-slate-900">{item.val}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* --- THE STEPS --- */}
+
+
       <section className="py-16 md:py-32 px-6 max-w-7xl mx-auto">
+
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
 
           {/* Left Side: Sticky Info */}

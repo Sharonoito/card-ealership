@@ -78,13 +78,21 @@ export default async function CarsPage({
 
   // Fetch once for no-reload filtering/sorting.
   // Defensive: avoid typed `include: { images }` if Prisma client is temporarily out of sync.
+
+
   const cars: InventoryCarRow[] = await prisma.car.findMany({
     where: { status: "AVAILABLE" },
     orderBy: { createdAt: "desc" },
     include: {
       images: { orderBy: { position: "asc" }, take: 1 },
     },
+    take: 24,
   });
+
+
+
+
+
 
   // Dependent dropdown data (Make -> Models)
   const makes = Array.from(new Set(cars.map((c) => c.make))).sort();

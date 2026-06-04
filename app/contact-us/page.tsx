@@ -86,7 +86,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {[
               { q: "How quickly will I hear back?", a: "Our concierge team typically responds within 2-4 business hours." },
-              { q: "Can I visit the office in person?", a: "Yes, we welcome visitors at our Federal Way location, though we recommend an appointment for vehicle viewings." },
+              { q: "Can I visit the office in person?", a: "Yes, you are welcome to visit us in person. Our office is located at 1505 S 356TH ST SUITE 114-17. We are open MON-FRI 9AM -5PM SAT 10AM- 3PM SUN CLOSED. We recommend scheduling an appointment in advance to ensure we are able to attend to you promptly. Contact us at (206) 990-1808 to book your visit." },
               { q: "Is there a fee for a consultation?", a: "No. All initial market analysis and consultations are free of charge." }
             ].map((item, i) => (
               <div key={i} className="bg-white p-8 rounded-3xl border border-slate-100">

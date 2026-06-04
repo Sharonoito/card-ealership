@@ -1,0 +1,27 @@
+{
+  "task": "Move Home page stats card (Listings/Partners/Delivery/Safety) to How It Works page",
+  "information_gathered": {
+    "home": "Stats card is rendered inside app/HomeClient.tsx under the // --- STATS --- section. It maps 4 items: Listings (150+), Partners (12), Delivery (5 Days), Safety (100%).",
+    "how_it_works": "app/how-it-works/page.tsx currently contains a hero section and then the steps layout; it does not have the stats card yet."
+  },
+  "plan": [
+    {
+      "file": "app/HomeClient.tsx",
+      "steps": [
+        "Remove the STATS section block currently rendered after the hero section: the section that starts with {/* --- STATS --- */} and contains the grid of 4 stat items."
+      ]
+    },
+    {
+      "file": "app/how-it-works/page.tsx",
+      "steps": [
+        "Paste an equivalent STATS section right after the hero section and before the // --- THE STEPS --- comment."
+      ]
+    }
+  ],
+  "dependent_files": ["TODO.md"],
+  "followup_steps": [
+    "Run `npm run lint` and `npm run build` to ensure the app compiles."
+  ]
+}
+
+

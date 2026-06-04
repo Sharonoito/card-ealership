@@ -1,17 +1,6 @@
-# TODO - Multi-image car uploads (URL + file) 
-
-- [x] Step 1: Add server-side helper to upload image files to `public/cars/` and return public URLs.
-- [ ] Step 2: Extend `app/admin/components/CarForm.tsx` UI to support:
-
-  - [ ] Thumbnail image: either URL OR file upload (optional file input; keep URL working)
-  - [ ] Additional gallery images: repeatable URL OR file upload
-  - [ ] Simple position ordering: thumbnail = position 0, additional = 1..n
-  - [ ] Keep existing fields and required behavior intact.
-- [ ] Step 3: Update `app/actions/cars.ts`:
-  - [ ] In `addCar`, keep current `imageUrl` behavior, and also create `CarImage` rows for uploaded/URL images.
-  - [ ] In `updateCar`, append new gallery images by default; do not delete existing gallery.
-- [ ] Step 4: Ensure public pages keep working:
-  - [ ] Listing thumbnail uses `Car.images?.[0]?.url ?? car.imageUrl`.
-  - [ ] Car detail carousel sorts by `CarImage.position`.
-- [ ] Step 5: Run `npm run lint` and `npm run build` to verify.
+- [ ] Remove partners from the stats section (find where partners are rendered and replace with correct stats)
+- [ ] Fix Listings 150+ stats to use real DB count (AVAILABLE cars) instead of any hardcoded value
+- [ ] Ensure any “150+” style UI is driven by prisma counts (and not client-side hardcoding)
+- [ ] Verify filters/search do not affect the stats count unless intended
+- [ ] Run lint/build/tests (e.g., npm run lint, npm run build) and fix any TypeScript errors
 

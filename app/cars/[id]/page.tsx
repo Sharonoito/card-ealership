@@ -56,6 +56,12 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "";
   const priceFormatted = formatPrice(car.price);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the ${car.year} ${car.model} for ${priceFormatted}.`)}`;
+  const titleStatus = car.titleStatus || "Guaranteed Clean";
+  const inspectionStatus = car.inspectionStatus || "Pass";
+  const biddingStatus = car.biddingStatus || "Active";
+  const marketStatus = car.marketStatus || "Auction Ready";
+  const location = car.location || "Federal Way, WA";
+  const condition = car.condition || "Tier 1 Certified";
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0071d2]/10">
@@ -86,9 +92,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
             {/* Condition Badges */}
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: "Title", val: "Guaranteed Clean" },
-                { label: "Inspection", val: "Pass" },
-                { label: "Bidding", val: "Active" }
+                { label: "Title", val: titleStatus },
+                { label: "Inspection", val: inspectionStatus },
+                { label: "Bidding", val: biddingStatus }
               ].map((badge, i) => (
                 <div key={i} className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center">
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{badge.label}</p>
@@ -121,9 +127,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
               <div className="py-10 border-y border-slate-100 grid grid-cols-2 gap-y-8 gap-x-12">
                 {[
                   { label: "Mileage", val: `${car.mileage.toLocaleString()} mi` },
-                  { label: "Market Status", val: "Auction Ready" },
-                  { label: "Location", val: "Federal Way, WA" },
-                  { label: "Condition", val: "Tier 1 Certified", highlight: true }
+                  { label: "Market Status", val: marketStatus },
+                  { label: "Location", val: location },
+                  { label: "Condition", val: condition, highlight: true }
                 ].map((spec, i) => (
                   <div key={i}>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{spec.label}</p>

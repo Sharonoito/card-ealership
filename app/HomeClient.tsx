@@ -61,22 +61,7 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* --- STATS --- */}
-      <section className="relative z-20 -mt-16 max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden">
-          {[
-            { label: "Listings", val: "150+" },
-            { label: "Partners", val: "12" },
-            { label: "Delivery", val: "5 Days" },
-            { label: "Safety", val: "100%" },
-          ].map((item, i) => (
-            <div key={i} className="p-6 sm:p-8 md:p-10 text-center border-r last:border-0 border-slate-50">
-              <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{item.label}</span>
-              <span className="text-xl sm:text-2xl font-black text-slate-900">{item.val}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+
 
       {/* --- PROCESS --- */}
       <section className="py-16 md:py-32 bg-white">
