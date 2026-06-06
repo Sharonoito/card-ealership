@@ -30,7 +30,7 @@ export default function ContactPage() {
                 Direct Channels
               </h2>
               <p className="text-slate-500 font-medium text-lg leading-relaxed">
-                Whether you're looking to start a bid or need a market analysis, our team is standing by.
+                Whether you are looking to start a bid or need a market analysis, our team is standing by.
               </p>
             </div>
 

@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import LoginForm from "./LoginForm";
 
 export const metadata = { title: "Secure Authentication | Novashift Admin" };
@@ -57,12 +58,12 @@ export default async function LoginPage() {
 
         {/* Footer Link */}
         <div className="mt-8 text-center">
-          <a 
-            href="/" 
+          <Link
+            href="/"
             className="text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-[#0071d2] transition-colors"
           >
             Return to Public Catalog
-          </a>
+          </Link>
         </div>
       </div>
     </div>

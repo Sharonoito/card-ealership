@@ -27,9 +27,12 @@ type AdminCarRow = {
 };
 
 export default async function AdminDashboard() {
-  const cars: AdminCarRow[] = await prisma.car.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const [cars, inquiryCount]: [AdminCarRow[], number] = await Promise.all([
+    prisma.car.findMany({
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.contactMessage.count(),
+  ]);
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-[#0071d2]/10">
@@ -51,6 +54,12 @@ export default async function AdminDashboard() {
           </div>
           
           <div className="flex items-center gap-4">
+            <Link
+              href="/admin/inquiries"
+              className="bg-white border border-slate-200 text-slate-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-[#0071d2] hover:text-[#005ba3] transition-all shadow-sm"
+            >
+              Inquiries ({inquiryCount})
+            </Link>
             <Link
               href="/admin/add"
               className="bg-[#0071d2] text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-950 transition-all shadow-lg shadow-[#0071d2]/10 active:scale-95"
