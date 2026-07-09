@@ -11,8 +11,15 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Car Dealership | Premium Pre-Owned Vehicles",
-  description: "Browse our handpicked collection of premium pre-owned vehicles.",
+  title: {
+    default: "Novashift Auto Dealers",
+    template: "%s | Novashift Auto Dealers",
+  },
+  description: "Browse Novashift Auto Dealers' handpicked collection of premium pre-owned vehicles.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
