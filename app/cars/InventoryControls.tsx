@@ -112,9 +112,14 @@ type Car = {
 
 type Props = {
   cars: Car[];
+  filterCars: Car[];
   makes: string[];
   modelsByMake: Record<string, string[]>;
   availableFeatures: string[];
+  currentPage: number;
+  pageSize: number;
+  totalCars: number;
+  totalPages: number;
   initialSearchParams?: {
     search?: string;
     make?: string;
@@ -490,8 +495,13 @@ function RangeFilter({
 
 export default function InventoryControls({
   cars,
+  currentPage,
+  filterCars,
   makes,
   modelsByMake,
+  pageSize,
+  totalCars,
+  totalPages,
   availableFeatures,
   initialSearchParams,
 }: Props) {
@@ -499,6 +509,7 @@ export default function InventoryControls({
   const searchParams = useSearchParams();
   const [featureSearch, setFeatureSearch] = useState("");
   const didInit = useRef(false);
+  const skipNextUrlSync = useRef(true);
 
   const sortFromUrl = ((): SortKey => {
     const raw = searchParams.get("sort") || initialSearchParams?.sort || "newest";
@@ -518,55 +529,60 @@ export default function InventoryControls({
   );
   const [state, dispatch] = useReducer(reducer, defaultState);
 
-  const availableCars = useMemo(
-    () => cars.filter((car) => car.status === "AVAILABLE"),
+  const inventoryCars = useMemo(
+    () => filterCars,
+    [filterCars]
+  );
+
+  const pageCars = useMemo(
+    () => cars,
     [cars]
   );
 
   const makeOptions = useMemo(() => {
     const counts = new Map(makes.map((make) => [make, 0]));
-    for (const car of availableCars) {
+    for (const car of inventoryCars) {
       counts.set(car.make, (counts.get(car.make) ?? 0) + 1);
     }
     return Array.from(counts, ([label, count]) => ({ label, count })).sort((a, b) =>
       a.label.localeCompare(b.label)
     );
-  }, [availableCars, makes]);
+  }, [inventoryCars, makes]);
 
   const modelCountsByMake = useMemo(() => {
     const result: Record<string, Record<string, number>> = {};
-    for (const car of availableCars) {
+    for (const car of inventoryCars) {
       result[car.make] ??= {};
       result[car.make][car.model] = (result[car.make][car.model] ?? 0) + 1;
     }
     return result;
-  }, [availableCars]);
+  }, [inventoryCars]);
 
   const options = useMemo(
     () => ({
-      bodyType: getOptions(availableCars, (car) => car.bodyType),
-      transmission: getOptions(availableCars, (car) => car.transmission),
-      fuelType: getOptions(availableCars, (car) => car.fuelType),
-      condition: getOptions(availableCars, (car) => car.condition),
-      drivetrain: getOptions(availableCars, (car) => car.drivetrain),
-      exteriorColor: getOptions(availableCars, (car) => car.exteriorColor),
-      interiorColor: getOptions(availableCars, (car) => car.interiorColor),
-      features: getFeatureOptions(availableCars, availableFeatures),
-      vehicleHistory: getHistoryOptions(availableCars),
+      bodyType: getOptions(inventoryCars, (car) => car.bodyType),
+      transmission: getOptions(inventoryCars, (car) => car.transmission),
+      fuelType: getOptions(inventoryCars, (car) => car.fuelType),
+      condition: getOptions(inventoryCars, (car) => car.condition),
+      drivetrain: getOptions(inventoryCars, (car) => car.drivetrain),
+      exteriorColor: getOptions(inventoryCars, (car) => car.exteriorColor),
+      interiorColor: getOptions(inventoryCars, (car) => car.interiorColor),
+      features: getFeatureOptions(inventoryCars, availableFeatures),
+      vehicleHistory: getHistoryOptions(inventoryCars),
     }),
-    [availableCars, availableFeatures]
+    [inventoryCars, availableFeatures]
   );
 
   const ranges = useMemo(() => {
-    const prices = availableCars.map((car) => car.price);
-    const mileages = availableCars.map((car) => car.mileage);
+    const prices = inventoryCars.map((car) => car.price);
+    const mileages = inventoryCars.map((car) => car.mileage);
     return {
       priceMin: Math.min(...prices, 0),
       priceMax: Math.max(...prices, 100000),
       mileageMin: Math.min(...mileages, 0),
       mileageMax: Math.max(...mileages, 200000),
     };
-  }, [availableCars]);
+  }, [inventoryCars]);
 
   useEffect(() => {
     if (didInit.current) return;
@@ -622,6 +638,10 @@ export default function InventoryControls({
 
   useEffect(() => {
     const params = buildQueryFromState(state, sort);
+    if (skipNextUrlSync.current) {
+      skipNextUrlSync.current = false;
+      return;
+    }
     router.replace(`/cars?${params.toString()}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, sort]);
@@ -683,7 +703,7 @@ export default function InventoryControls({
       return true;
     };
 
-    const sorted = availableCars.filter(matches);
+    const sorted = pageCars.filter(matches);
     const availabilityRank = (status: string) => (status === "AVAILABLE" ? 0 : 1);
 
     sorted.sort((a, b) => {
@@ -703,7 +723,7 @@ export default function InventoryControls({
     });
 
     return sorted;
-  }, [availableCars, state, sort]);
+  }, [pageCars, state, sort]);
 
   const filteredFeatureOptions = useMemo(() => {
     const q = featureSearch.trim().toLowerCase();
@@ -756,6 +776,26 @@ export default function InventoryControls({
   }, [state]);
 
   const activeFilterCount = pills.length;
+  const pageStart = totalCars === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const pageEnd = Math.min(currentPage * pageSize, totalCars);
+
+  const pageHref = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (page <= 1) {
+      params.delete("page");
+    } else {
+      params.set("page", String(page));
+    }
+    const query = params.toString();
+    return query ? `/cars?${query}` : "/cars";
+  };
+
+  const paginationPages = useMemo(() => {
+    const pages = new Set([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
+    return Array.from(pages)
+      .filter((page) => page >= 1 && page <= totalPages)
+      .sort((a, b) => a - b);
+  }, [currentPage, totalPages]);
   const clearAll = () => dispatch({ type: "CLEAR_ALL" });
 
   const sidebar = (
@@ -1073,8 +1113,8 @@ export default function InventoryControls({
                   Inventory
                 </h2>
                 <p className="mt-1 font-medium text-slate-500">
-                  Showing {filteredAndSortedCars.length}{" "}
-                  {filteredAndSortedCars.length === 1 ? "vehicle" : "vehicles"}
+                  Showing {pageStart}-{pageEnd} of {totalCars}{" "}
+                  {totalCars === 1 ? "vehicle" : "vehicles"}
                 </p>
               </div>
             </div>
@@ -1120,6 +1160,63 @@ export default function InventoryControls({
                 ))}
               </div>
             )}
+
+            {totalPages > 1 ? (
+              <nav
+                className="mt-10 flex flex-wrap items-center justify-center gap-2"
+                aria-label="Inventory pagination"
+              >
+                <Link
+                  href={pageHref(Math.max(1, currentPage - 1))}
+                  aria-disabled={currentPage === 1}
+                  className={`rounded-xl border px-4 py-3 text-[11px] font-black uppercase tracking-widest transition-colors ${
+                    currentPage === 1
+                      ? "pointer-events-none border-slate-100 text-slate-300"
+                      : "border-slate-200 text-slate-600 hover:border-[#0071d2] hover:text-[#005ba3]"
+                  }`}
+                >
+                  Previous
+                </Link>
+
+                {paginationPages.map((page, index) => {
+                  const previous = paginationPages[index - 1];
+                  const hasGap = previous !== undefined && page - previous > 1;
+
+                  return (
+                    <div key={page} className="flex items-center gap-2">
+                      {hasGap ? (
+                        <span className="px-1 text-sm font-black text-slate-300">
+                          ...
+                        </span>
+                      ) : null}
+                      <Link
+                        href={pageHref(page)}
+                        aria-current={page === currentPage ? "page" : undefined}
+                        className={`flex h-11 min-w-11 items-center justify-center rounded-xl border px-3 text-sm font-black transition-colors ${
+                          page === currentPage
+                            ? "border-[#0071d2] bg-[#0071d2] text-white"
+                            : "border-slate-200 text-slate-600 hover:border-[#0071d2] hover:text-[#005ba3]"
+                        }`}
+                      >
+                        {page}
+                      </Link>
+                    </div>
+                  );
+                })}
+
+                <Link
+                  href={pageHref(Math.min(totalPages, currentPage + 1))}
+                  aria-disabled={currentPage === totalPages}
+                  className={`rounded-xl border px-4 py-3 text-[11px] font-black uppercase tracking-widest transition-colors ${
+                    currentPage === totalPages
+                      ? "pointer-events-none border-slate-100 text-slate-300"
+                      : "border-slate-200 text-slate-600 hover:border-[#0071d2] hover:text-[#005ba3]"
+                  }`}
+                >
+                  Next
+                </Link>
+              </nav>
+            ) : null}
           </section>
         </div>
       </div>

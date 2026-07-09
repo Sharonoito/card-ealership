@@ -2,6 +2,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { getCarUploadsDir } from './carUploadPaths';
 
 const maxImageBytes = 6 * 1024 * 1024;
 const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -46,11 +47,11 @@ function hasValidImageSignature(bytes: Uint8Array, mime: string) {
 }
 
 export async function saveCarImageFilesToPublicCars(files: File[]): Promise<string[]> {
-  // Destination: public/cars
-  // Public URL: /cars/<filename>
-  const publicCarsDir = path.join(process.cwd(), 'public', 'cars');
+  // Destination: uploads/cars
+  // Public URL: /uploads/cars/<filename>
+  const uploadsDir = getCarUploadsDir();
 
-  await fs.mkdir(publicCarsDir, { recursive: true });
+  await fs.mkdir(uploadsDir, { recursive: true });
 
   const urls: string[] = [];
 
@@ -64,12 +65,11 @@ export async function saveCarImageFilesToPublicCars(files: File[]): Promise<stri
     if (!hasValidImageSignature(bytes, file.type)) continue;
 
     const filename = `car-${Date.now()}-${Math.random().toString(16).slice(2)}.${ext}`;
-    const fullPath = path.join(publicCarsDir, filename);
+    const fullPath = path.join(uploadsDir, filename);
 
     await fs.writeFile(fullPath, bytes);
 
-    // Next serves /public at the root
-    urls.push(`/cars/${filename}`);
+    urls.push(`/uploads/cars/${filename}`);
   }
 
   return urls;

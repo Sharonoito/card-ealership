@@ -402,6 +402,8 @@ export async function addCar(
 
 
   revalidatePath("/");
+  revalidatePath("/", "layout");
+  revalidatePath("/cars");
   revalidatePath("/admin");
   redirect("/admin");
 }
@@ -655,6 +657,7 @@ export async function bulkUploadCars(
   revalidatePath("/");
   revalidatePath("/cars");
   revalidatePath("/admin");
+  revalidatePath("/", "layout");
 
   const skipped = rowErrors.length ? ` ${rowErrors.length} row(s) were skipped.` : "";
   return {
@@ -799,7 +802,9 @@ export async function updateCar(
 
 
   revalidatePath("/");
+  revalidatePath("/cars");
   revalidatePath("/admin");
+  revalidatePath("/", "layout");
   revalidatePath(`/cars/${id}`);
   redirect("/admin");
 }
@@ -818,7 +823,9 @@ export async function deleteCar(id: string): Promise<void> {
   }
 
   revalidatePath("/");
+  revalidatePath("/cars");
   revalidatePath("/admin");
+  revalidatePath("/", "layout");
 }
 
 export type InterestState = 
